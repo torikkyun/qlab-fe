@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QLAB Admin Panel</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/pages/dashboard.css" />
+    <link rel="stylesheet" href="../css/components/header.css" />
+    <link rel="stylesheet" href="../css/components/sidebar.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Sidebar -->
+      <div id="sidebar-container"></div>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Header -->
+        <div id="header-container"></div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-container">
+          <div class="stat-card">
+            <h3>Tổng số phiếu mượn</h3>
+            <div class="stat-content"></div>
+          </div>
+          <div class="stat-card">
+            <h3>Phiếu mượn đúng hạn</h3>
+            <div class="stat-content"></div>
+          </div>
+          <div class="stat-card">
+            <h3>Phiếu mượn quá hạn</h3>
+            <div class="stat-content"></div>
+          </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-container">
+          <div class="chart-box">
+            <h3>Biểu đồ về tổng mượn đúng hạn, quá hạn</h3>
+            <div class="chart-content"></div>
+          </div>
+        </div>
+
+        <!-- Projects Table -->
+        <div class="projects-container">
+          <div class="projects-header">
+            <h3>Dự án</h3>
+            <button class="btn-more">Chi tiết</button>
+          </div>
+          <table class="projects-table">
+            <thead>
+              <tr>
+                <th>Tên dự án</th>
+                <th>Bắt đầu</th>
+                <th>Kết thúc</th>
+                <th>Tiến độ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Table content will be dynamically added -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="summary-container">
+          <div class="summary-box">
+            <h3>Tổng quan</h3>
+            <div class="summary-stats">
+              <div class="stat-item">
+                <span>Nhân viên</span>
+                <strong>32,984</strong>
+              </div>
+              <div class="stat-item">
+                <span>Thiết bị</span>
+                <strong>320</strong>
+              </div>
+              <div class="stat-item">
+                <span>Dự án</span>
+                <strong>15</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script>
+      fetch("../partials/sidebar.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("sidebar-container").innerHTML = data;
+        })
+        .catch((error) => console.error("Lỗi khi load sidebar:", error));
+
+      fetch("../partials/header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-container").innerHTML = data;
+        })
+        .catch((error) => console.error("Lỗi khi load header:", error));
+    </script>
+  </body>
+</html>

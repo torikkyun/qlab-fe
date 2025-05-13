@@ -1,0 +1,33 @@
+:root {
+  /* Colors */
+  --background-primary: #f8f9fa;
+  --color-primary: #4fd1c5;
+  --color-gray-primary: #2d3748;
+  --color-gray: #a0aec0;
+
+  /* Sizes */
+  --sidebar-width: 222px;
+  --icon-size: 24px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: var(--background-primary);
+  padding: 0 40px 0 40px;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
