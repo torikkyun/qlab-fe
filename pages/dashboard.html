@@ -103,20 +103,8 @@
         </div>
       </main>
     </div>
-    <script>
-      fetch("../partials/sidebar.html")
-        .then((response) => response.text())
-        .then((data) => {
-          document.getElementById("sidebar-container").innerHTML = data;
-        })
-        .catch((error) => console.error("Lỗi khi load sidebar:", error));
-
-      fetch("../partials/header.html")
-        .then((response) => response.text())
-        .then((data) => {
-          document.getElementById("header-container").innerHTML = data;
-        })
-        .catch((error) => console.error("Lỗi khi load header:", error));
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/components/sidebar.js"></script>
+    <script src="../js/main.js"></script>
   </body>
 </html>
