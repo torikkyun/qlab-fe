@@ -1,6 +1,6 @@
 .data-section {
   padding: 20px;
-  background: #fff;
+  background: var(--background-primary);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -14,13 +14,13 @@
 
 .data-section-title {
   font-size: 1.5rem;
-  color: #333;
+  color: var(--color-text);
   margin: 0;
 }
 
 .data-section-add-btn {
   padding: 8px 16px;
-  background-color: #4caf50;
+  background-color: var(--color-primary);
   color: white;
   border: none;
   border-radius: 4px;
@@ -32,7 +32,7 @@
 }
 
 .data-section-add-btn:hover {
-  background-color: #45a049;
+  background-color: var(--color-primary-dark);
 }
 
 .data-table {
@@ -45,17 +45,17 @@
 .data-table td {
   padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--color-border-table);
 }
 
 .data-table th {
-  background-color: #f5f5f5;
+  background-color: var(--background-secondary);
   font-weight: bold;
-  color: #333;
+  color: var(--color-text);
 }
 
 .data-table tr:hover {
-  background-color: #f9f9f9;
+  background-color: var(--color-primary-bg);
 }
 
 .data-table .actions {
@@ -71,12 +71,12 @@
 }
 
 .data-table .action-btn.delete {
-  background-color: #f44336;
+  background-color: var(--color-danger);
   color: white;
 }
 
 .data-table .action-btn.edit {
-  background-color: #2196f3;
+  background-color: var(--color-primary);
   color: white;
 }
 

@@ -108,16 +108,14 @@ async function deleteProject(row) {
   try {
     const projectId = row.id;
 
-    // Hiển thị modal xác nhận
     modal.show("Xác nhận xóa", deleteConfirmTemplate(row));
 
-    // Xử lý sự kiện khi click nút xóa
     const confirmButton = document.getElementById("confirmDelete");
     confirmButton.onclick = async () => {
       try {
         await deleteProjectById(projectId);
         modal.hide();
-        loadProjects(); // Tải lại dữ liệu
+        loadProjects();
       } catch (error) {
         console.error("Error deleting project:", error);
       }

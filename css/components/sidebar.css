@@ -1,7 +1,9 @@
 .sidebar {
   width: var(--sidebar-width);
-  color: black;
+  color: var(--color-text);
   padding: 20px;
+  width: 250px;
+  transition: width 0.3s ease;
 }
 
 .logo h2 {
@@ -13,7 +15,7 @@
   border: none;
   height: 1px;
   width: 100%;
-  background-color: var(--color-gray);
+  background-color: var(--color-border);
 }
 
 .nav-links {
@@ -30,22 +32,22 @@
   align-items: center;
   padding: 10px;
   border-radius: 10px;
-  color: var(--color-gray);
+  color: var(--color-text-secondary);
   font-size: var(--font-size);
   font-weight: bold;
   transition: all 0.3s ease;
 }
 
 .nav-links a:hover {
-  color: var(--color-gray-primary);
-  background-color: rgba(255, 255, 255, 0.8);
+  color: var(--color-primary);
+  background-color: var(--color-primary-bg);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav-links a:hover .icon {
   transform: scale(1.1);
   background-color: var(--color-primary);
-  color: white;
+  color: var(--background-primary);
 }
 
 .nav-links li .icon {
@@ -57,20 +59,20 @@
   min-width: var(--icon-size);
   display: grid;
   place-content: center;
-  background-color: white;
+  background-color: var(--color-primary-bg);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   color: var(--color-primary);
 }
 
 .nav-links li.active a {
-  color: var(--color-gray-primary);
+  color: var(--color-primary);
   font-weight: bold;
-  background-color: #ffffff;
+  background-color: var(--color-primary-bg);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .nav-links li.active a .icon {
-  color: white;
+  color: var(--background-primary);
   background-color: var(--color-primary);
   transform: scale(1.1);
 }

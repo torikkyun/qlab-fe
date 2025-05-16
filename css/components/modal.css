@@ -24,7 +24,7 @@
   width: 90%;
   max-width: 500px;
   margin: 50px auto;
-  background: white;
+  background: var(--background-primary);
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -34,13 +34,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .modal-title {
   margin: 0;
   font-size: 1.2rem;
-  color: #333;
+  color: var(--color-text);
 }
 
 .modal-close {
@@ -48,7 +48,7 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: #666;
+  color: var(--color-text-secondary);
 }
 
 .modal-content {
@@ -62,14 +62,14 @@
 .form-group label {
   display: block;
   margin-bottom: 5px;
-  color: #333;
+  color: var(--color-text);
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
 }
 
@@ -93,13 +93,13 @@
 }
 
 .btn-primary {
-  background: #4caf50;
+  background: var(--color-primary);
   color: white;
 }
 
 .btn-secondary {
-  background: #f5f5f5;
-  color: #333;
+  background: var(--background-secondary);
+  color: var(--color-text);
 }
 
 .confirm-dialog {
@@ -109,21 +109,21 @@
 
 .confirm-message {
   font-size: 16px;
-  color: #333;
+  color: var(--color-text);
   margin-bottom: 10px;
 }
 
 .confirm-warning {
-  color: #dc3545;
+  color: var(--color-danger);
   font-size: 14px;
   margin-bottom: 20px;
 }
 
 .btn-danger {
-  background-color: #dc3545;
+  background-color: var(--color-danger);
   color: white;
 }
 
 .btn-danger:hover {
-  background-color: #c82333;
+  background-color: var(--color-danger-dark);
 }

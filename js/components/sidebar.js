@@ -23,5 +23,17 @@ function initializeSidebarEvents() {
   });
 }
 
+function initializeSidebarToggle() {
+  const toggleButton = document.getElementById("sidebar-toggle");
+  const sidebar = document.getElementById("sidebar");
+
+  if (toggleButton && sidebar) {
+    toggleButton.addEventListener("click", function () {
+      sidebar.classList.toggle("collapsed");
+    });
+  }
+}
+
 window.setActiveMenuItem = setActiveMenuItem;
 window.initializeSidebarEvents = initializeSidebarEvents;
+window.initializeSidebarToggle = initializeSidebarToggle;

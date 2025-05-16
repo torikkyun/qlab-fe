@@ -18,7 +18,6 @@ class Modal {
       </div>
     `;
 
-    // Xử lý đóng modal
     this.modal.querySelector(".modal-close").onclick = () => this.hide();
     this.modal.querySelector(".modal-overlay").onclick = () => this.hide();
 
