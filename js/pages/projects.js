@@ -1,32 +1,54 @@
-async function initializeProjects() {
-  const projectsSection = new DataSection("projects-container", {
-    title: "Danh sách dự án",
-    addButtonText: "Thêm dự án",
-    onAdd: () => addProject(),
-    table: {
-      columns: [
-        { field: "id", label: "ID" },
-        { field: "name", label: "Tên dự án" },
-        { field: "startDate", label: "Ngày bắt đầu", type: "date" },
-        { field: "endDate", label: "Ngày kết thúc", type: "date" },
-        { field: "description", label: "Mô tả" },
-      ],
-      options: {
-        rowActions: [
-          { label: "Sửa", class: "btn-edit", handler: "editProject" },
-          { label: "Xóa", class: "btn-delete", handler: "deleteProject" },
-        ],
-      },
+const projectsTable = new DataTable("projects-container", {
+  title: "Quản lý dự án",
+  addButton: {
+    text: "Thêm dự án",
+    onClick: () => {
+      console.log("Add new project");
     },
-  });
+  },
+  columns: [
+    {
+      field: "name",
+      title: "Tên dự án",
+    },
+    {
+      field: "startDate",
+      title: "Ngày bắt đầu",
+      render: (value) => new Date(value).toLocaleDateString("vi-VN"),
+    },
+    {
+      field: "endDate",
+      title: "Ngày kết thúc",
+      render: (value) => new Date(value).toLocaleDateString("vi-VN"),
+    },
+    {
+      field: "description",
+      title: "Mô tả",
+    },
+  ],
+  actions: [
+    {
+      label: "Sửa",
+      class: "edit",
+      onClick: (row) => editProject(row._id),
+    },
+    {
+      label: "Xóa",
+      class: "delete",
+      onClick: (row) => deleteProject(row._id),
+    },
+  ],
+});
 
+// Load dữ liệu
+async function loadProjects() {
   try {
     const projects = await getProjects();
-    projectsSection.renderData(projects);
+    projectsTable.updateData(projects);
   } catch (error) {
-    console.error("Lỗi khi tải dữ liệu:", error);
-    alert("Có lỗi xảy ra khi tải dữ liệu dự án");
+    console.error("Error loading projects:", error);
   }
 }
 
-document.addEventListener("DOMContentLoaded", initializeProjects);
+// Khởi tạo khi trang load
+document.addEventListener("DOMContentLoaded", loadProjects);
