@@ -116,3 +116,30 @@ const updateProject = async (projectId, projectData) => {
     throw error;
   }
 };
+
+const deleteProjectById = async (projectId) => {
+  try {
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      window.location.href = "/pages/signin.html";
+      return;
+    }
+
+    const response = await axios.delete(
+      `http://localhost:3000/api/projects/${projectId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("access_token");
+      window.location.href = "/pages/signin.html";
+    }
+    throw error;
+  }
+};
