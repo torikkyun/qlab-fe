@@ -168,10 +168,6 @@ const projectsTable = new DataTable("projects-container", {
       title: "Ngày kết thúc",
       render: (value) => new Date(value).toLocaleDateString("vi-VN"),
     },
-    {
-      field: "description",
-      title: "Mô tả",
-    },
   ],
   actions: [
     {
@@ -185,6 +181,31 @@ const projectsTable = new DataTable("projects-container", {
       onClick: (row) => deleteProject(row),
     },
   ],
+  onRowClick: async (row) => {
+    try {
+      const projectDetail = await getProjectById(row.id);
+
+      document.querySelector(".modal-container").classList.add("detail-modal");
+      document.querySelector(".modal-content").classList.add("detail-content");
+
+      const content = `
+        <div class="detail-info">
+          <p><strong>Tên dự án:</strong> ${projectDetail.name}</p>
+          <p><strong>Ngày bắt đầu:</strong> ${new Date(
+            projectDetail.startDate
+          ).toLocaleDateString("vi-VN")}</p>
+          <p><strong>Ngày kết thúc:</strong> ${new Date(
+            projectDetail.endDate
+          ).toLocaleDateString("vi-VN")}</p>
+          <p><strong>Mô tả:</strong> ${projectDetail.description}</p>
+        </div>
+      `;
+
+      modal.show("Chi tiết thông tin", content);
+    } catch (error) {
+      console.error("Error loading device details:", error);
+    }
+  },
 });
 
 // Load dữ liệu

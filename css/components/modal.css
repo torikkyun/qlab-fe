@@ -127,3 +127,27 @@
 .btn-danger:hover {
   background-color: var(--color-danger-dark);
 }
+
+.detail-info {
+  padding: 10px;
+}
+
+.detail-info p {
+  margin: 12px 0;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.detail-info strong {
+  display: inline-block;
+  min-width: 120px;
+}
+
+.modal-container.detail-modal {
+  max-width: 600px;
+}
+
+.modal-content.detail-content {
+  max-height: 80vh;
+  overflow-y: auto;
+}

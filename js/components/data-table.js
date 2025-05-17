@@ -10,6 +10,7 @@ class DataTable {
       columns: [],
       data: [],
       actions: [],
+      onRowClick: null,
       ...config,
     };
     this.render();
@@ -68,6 +69,16 @@ class DataTable {
     const tbody = document.createElement("tbody");
     this.config.data.forEach((row) => {
       const tr = document.createElement("tr");
+
+      // Thêm sự kiện click cho dòng
+      if (this.config.onRowClick) {
+        tr.style.cursor = "pointer";
+        tr.onclick = (e) => {
+          if (!e.target.closest(".action-btn")) {
+            this.config.onRowClick(row);
+          }
+        };
+      }
 
       // Render các cột dữ liệu
       this.config.columns.forEach((column) => {

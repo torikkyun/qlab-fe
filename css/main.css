@@ -50,5 +50,7 @@ body {
 
 .main-content {
   flex: 1;
+  margin-left: var(--sidebar-width);
   padding: 20px;
+  min-height: 100vh;
 }

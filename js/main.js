@@ -1,8 +1,34 @@
+function getPageTitle() {
+  const path = window.location.pathname;
+  switch (path) {
+    case "/pages/dashboard.html":
+      return "Trang chủ";
+    case "/pages/users.html":
+      return "Người dùng";
+    case "/pages/devices.html":
+      return "Thiết bị";
+    case "/pages/projects.html":
+      return "Dự án";
+    case "/pages/profile.html":
+      return "Hồ sơ";
+    default:
+      return "Trang chủ";
+  }
+}
+
+function setHeaderTitle() {
+  const headerTitle = document.querySelector(".header-title");
+  if (headerTitle) {
+    headerTitle.textContent = getPageTitle();
+  }
+}
+
 function loadLayout() {
   axios
     .get("/partials/header.html")
     .then((response) => {
       document.getElementById("header-container").innerHTML = response.data;
+      setHeaderTitle();
     })
     .catch((error) => console.error("Lỗi khi load header:", error));
 

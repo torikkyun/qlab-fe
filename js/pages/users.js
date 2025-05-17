@@ -178,6 +178,26 @@ const usersTable = new DataTable("users-container", {
       onClick: (row) => deleteUser(row),
     },
   ],
+  onRowClick: async (row) => {
+    try {
+      const userDetail = await getUserById(row.id);
+
+      document.querySelector(".modal-container").classList.add("detail-modal");
+      document.querySelector(".modal-content").classList.add("detail-content");
+
+      const content = `
+        <div class="detail-info">
+          <p><strong>Họ và tên:</strong> ${userDetail.firstName} ${userDetail.lastName}</p>
+          <p><strong>Email:</strong> ${userDetail.email}</p>
+          <p><strong>Số điện thoại:</strong> ${userDetail.phone}</p>
+        </div>
+      `;
+
+      modal.show("Chi tiết thông tin", content);
+    } catch (error) {
+      console.error("Error loading user details:", error);
+    }
+  },
 });
 
 async function loadUsers() {

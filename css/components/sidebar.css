@@ -1,9 +1,15 @@
 .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
   width: var(--sidebar-width);
   color: var(--color-text);
   padding: 20px;
   width: 250px;
   transition: width 0.3s ease;
+  overflow-y: auto;
+  background-color: var(--background-primary);
 }
 
 .logo h2 {
@@ -75,4 +81,28 @@
   color: var(--background-primary);
   background-color: var(--color-primary);
   transform: scale(1.1);
+}
+
+/* Style cho thanh cuộn của sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 3px;
+}
+
+/* Xử lý khi sidebar bị collapse */
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar.collapsed + .main-content {
+  margin-left: 80px;
 }
