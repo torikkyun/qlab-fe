@@ -38,6 +38,7 @@ function loadLayout() {
       document.getElementById("sidebar-container").innerHTML = response.data;
       setActiveMenuItem();
       initializeSidebarEvents();
+      initializeSidebarToggle();
     })
     .catch((error) => console.error("Lỗi khi load sidebar:", error));
 }

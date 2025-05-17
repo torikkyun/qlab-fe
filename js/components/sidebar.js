@@ -26,10 +26,27 @@ function initializeSidebarEvents() {
 function initializeSidebarToggle() {
   const toggleButton = document.getElementById("sidebar-toggle");
   const sidebar = document.getElementById("sidebar");
+  const mainContent = document.querySelector(".main-content");
+
+  const isSidebarCollapsed =
+    localStorage.getItem("sidebarCollapsed") === "true";
+  if (isSidebarCollapsed) {
+    sidebar.classList.add("collapsed");
+    if (mainContent) {
+      mainContent.classList.add("sidebar-collapsed");
+    }
+  }
 
   if (toggleButton && sidebar) {
     toggleButton.addEventListener("click", function () {
       sidebar.classList.toggle("collapsed");
+      if (mainContent) {
+        mainContent.classList.toggle("sidebar-collapsed");
+      }
+      localStorage.setItem(
+        "sidebarCollapsed",
+        sidebar.classList.contains("collapsed")
+      );
     });
   }
 }
