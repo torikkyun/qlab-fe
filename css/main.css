@@ -59,15 +59,3 @@ body {
 .main-content.sidebar-collapsed {
   margin-left: 30px;
 }
-
-/* .main-content {
-  margin-left: var(--sidebar-width);
-  padding: 20px;
-  transition: margin-left 0.5s ease;
-  width: calc(100% - var(--sidebar-width));
-}
-
-.main-content.sidebar-collapsed {
-  margin-left: 60px;
-  width: calc(100% - 60px);
-} */

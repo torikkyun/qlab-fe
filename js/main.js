@@ -11,6 +11,8 @@ function getPageTitle() {
       return "Dự án";
     case "/pages/profile.html":
       return "Hồ sơ";
+    case "/pages/loans.html":
+      return "Mượn trả thiết bị";
     default:
       return "Trang chủ";
   }
