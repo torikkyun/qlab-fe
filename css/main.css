@@ -26,7 +26,7 @@
   --color-disabled-bg: #edf2f7;
 
   /* Sizes (giữ nguyên từ bạn) */
-  --sidebar-width: 222px;
+  --sidebar-width: 180px;
   --icon-size: 24px;
   --font-size: 14px;
 }
@@ -40,22 +40,22 @@
 body {
   font-family: "Open Sans", sans-serif;
   background-color: var(--background-primary);
-  padding: 0 40px 0 40px;
 }
 
 .container {
   display: flex;
-  min-height: 100vh;
+  position: relative;
 }
 
 .main-content {
   flex: 1;
-  margin-left: calc(var(--sidebar-width) - 40px);
   transition: margin-left 0.3s ease;
   padding: 20px;
   min-height: 100vh;
 }
 
-.main-content.sidebar-collapsed {
-  margin-left: 30px;
+@media screen and (max-width: 480px) {
+  .main-content {
+    padding-left: 5px;
+  }
 }

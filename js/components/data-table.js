@@ -22,7 +22,7 @@ class DataTable {
     header.className = "data-section-header";
 
     // Tạo tiêu đề
-    const title = document.createElement("h2");
+    const title = document.createElement("h3");
     title.className = "data-section-title";
     title.textContent = this.config.title;
     header.appendChild(title);

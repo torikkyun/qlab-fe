@@ -28,8 +28,12 @@ function initializeSidebarToggle() {
   const sidebar = document.getElementById("sidebar");
   const mainContent = document.querySelector(".main-content");
 
-  const isSidebarCollapsed =
-    localStorage.getItem("sidebarCollapsed") === "true";
+  let isSidebarCollapsed = true;
+
+  if (localStorage.getItem("sidebarCollapsed") !== null) {
+    isSidebarCollapsed = localStorage.getItem("sidebarCollapsed") === "true";
+  }
+
   if (isSidebarCollapsed) {
     sidebar.classList.add("collapsed");
     if (mainContent) {
