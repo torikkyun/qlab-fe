@@ -3,10 +3,6 @@ class DataTable {
     this.container = document.getElementById(containerId);
     this.config = {
       title: "",
-      addButton: {
-        text: "Thêm mới",
-        onClick: () => {},
-      },
       columns: [],
       data: [],
       actions: [],
@@ -32,11 +28,13 @@ class DataTable {
     header.appendChild(title);
 
     // Tạo nút thêm mới
-    const addButton = document.createElement("button");
-    addButton.className = "data-section-add-btn";
-    addButton.textContent = this.config.addButton.text;
-    addButton.onclick = this.config.addButton.onClick;
-    header.appendChild(addButton);
+    if (this.config.addButton) {
+      const addButton = document.createElement("button");
+      addButton.className = "data-section-add-btn";
+      addButton.textContent = this.config.addButton.text;
+      addButton.onclick = this.config.addButton.onClick;
+      header.appendChild(addButton);
+    }
 
     section.appendChild(header);
 
