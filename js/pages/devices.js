@@ -229,7 +229,7 @@ const devicesTable = new DataTable("devices-container", {
       label: "Mượn",
       class: "borrow",
       onClick: (row) => borrowDevice(row),
-      showIf: (row) => row.statusName === "Available",
+      showIf: (row) => (row.statusName === "Available") | "Có sẵn",
     },
     { label: "Sửa", class: "edit", onClick: (row) => editDevice(row) },
     { label: "Xóa", class: "delete", onClick: (row) => deleteDevice(row) },
@@ -246,7 +246,11 @@ const devicesTable = new DataTable("devices-container", {
           <p><strong>Tên thiết bị:</strong> ${deviceDetail.name}</p>
           <p><strong>Mã thiết bị:</strong> ${deviceDetail.code}</p>
           <p><strong>Giá:</strong> ${deviceDetail.cost}</p>
-          <p><strong>Mô tả:</strong> ${deviceDetail.description}</p>
+          <p><strong>Mô tả:</strong> ${
+            deviceDetail.description
+              ? deviceDetail.description
+              : "Không có mô tả"
+          }</p>
           <p><strong>Trạng thái:</strong> ${deviceDetail.statusName}</p>
         </div>
       `;

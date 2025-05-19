@@ -197,7 +197,11 @@ const projectsTable = new DataTable("projects-container", {
           <p><strong>Ngày kết thúc:</strong> ${new Date(
             projectDetail.endDate
           ).toLocaleDateString("vi-VN")}</p>
-          <p><strong>Mô tả:</strong> ${projectDetail.description}</p>
+          <p><strong>Mô tả:</strong> ${
+            projectDetail.description
+              ? projectDetail.description
+              : "Không có mô tả"
+          }</p>
         </div>
       `;
 

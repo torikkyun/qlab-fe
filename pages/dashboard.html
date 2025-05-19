@@ -35,76 +35,69 @@
       <main class="main-content">
         <!-- Header -->
         <div id="header-container"></div>
-
-        <!-- Statistics Cards -->
-        <div class="stats-container">
-          <div class="stat-card">
-            <h3>Tổng số phiếu mượn</h3>
-            <div class="stat-content"></div>
-          </div>
-          <div class="stat-card">
-            <h3>Phiếu mượn đúng hạn</h3>
-            <div class="stat-content"></div>
-          </div>
-          <div class="stat-card">
-            <h3>Phiếu mượn quá hạn</h3>
-            <div class="stat-content"></div>
-          </div>
-        </div>
-
-        <!-- Charts Section -->
-        <div class="charts-container">
-          <div class="chart-box">
-            <h3>Biểu đồ về tổng mượn đúng hạn, quá hạn</h3>
-            <div class="chart-content"></div>
-          </div>
-        </div>
-
-        <!-- Projects Table -->
-        <div class="projects-container">
-          <div class="projects-header">
-            <h3>Dự án</h3>
-            <button class="btn-more">Chi tiết</button>
-          </div>
-          <table class="projects-table">
-            <thead>
-              <tr>
-                <th>Tên dự án</th>
-                <th>Bắt đầu</th>
-                <th>Kết thúc</th>
-                <th>Tiến độ</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Table content will be dynamically added -->
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Summary Section -->
         <div class="summary-container">
-          <div class="summary-box">
-            <h3>Tổng quan</h3>
-            <div class="summary-stats">
-              <div class="stat-item">
-                <span>Nhân viên</span>
-                <strong>32,984</strong>
+          <div class="summary-card">
+            <div class="summary-icon devices-icon">
+              <i class="fas fa-laptop"></i>
+            </div>
+            <div class="summary-info">
+              <h3>Thiết bị</h3>
+              <div class="summary-details">
+                <p><span id="totalDevices">0</span> tổng số</p>
+                <p><span id="availableDevices">0</span> khả dụng</p>
+                <p><span id="borrowedDevices">0</span> đang mượn</p>
               </div>
-              <div class="stat-item">
-                <span>Thiết bị</span>
-                <strong>320</strong>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <div class="summary-icon users-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="summary-info">
+              <h3>Người dùng</h3>
+              <div class="summary-details">
+                <p><span id="totalUsers">0</span> tổng số</p>
+                <p><span id="borrowingUsers">0</span> đang mượn</p>
               </div>
-              <div class="stat-item">
-                <span>Dự án</span>
-                <strong>15</strong>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <div class="summary-icon loans-icon">
+              <i class="fas fa-exchange-alt"></i>
+            </div>
+            <div class="summary-info">
+              <h3>Mượn trả</h3>
+              <div class="summary-details">
+                <p><span id="totalLoans">0</span> lượt mượn</p>
+                <p><span id="unreturnedLoans">0</span> chưa trả</p>
+                <p><span id="returnedLoans">0</span> đã trả</p>
               </div>
             </div>
           </div>
         </div>
+
+        <div class="charts-container">
+          <div class="chart-card">
+            <h3>Thống kê mượn trả theo tháng</h3>
+            <canvas id="loansChart"></canvas>
+          </div>
+
+          <div class="chart-card">
+            <h3>Top thiết bị được mượn nhiều</h3>
+            <canvas id="topDevicesChart"></canvas>
+          </div>
+        </div>
       </main>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../js/components/sidebar.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/pages/dashboard.js"></script>
+    <script src="../js/services/devices.service.js"></script>
+    <script src="../js/services/users.service.js"></script>
+    <script src="../js/services/loans.service.js"></script>
   </body>
 </html>
