@@ -78,10 +78,26 @@
 }
 
 .data-table .action-btn.edit {
-  background-color: var(--color-primary);
+  background-color: var(--color-warning);
   color: white;
 }
 
 .data-table .action-btn:hover {
   opacity: 0.8;
+}
+
+.action-btn.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.action-btn.borrow {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
 }

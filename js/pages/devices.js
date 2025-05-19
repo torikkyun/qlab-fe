@@ -64,6 +64,37 @@ const deleteConfirmTemplate = (device) => `
   </div>
 `;
 
+// Template form mượn thiết bị
+const borrowDeviceFormTemplate = (device) => `
+  <form id="borrowDeviceForm">
+    <div class="form-group">
+      <label for="name">Tên thiết bị</label>
+      <input type="text" id="name" name="name" value="${device.name}" readonly>
+    </div>
+    <div class="form-group">
+      <label for="code">Mã thiết bị</label>
+      <input type="text" id="code" name="code" value="${device.code}" readonly>
+    </div>
+    <div class="form-group">
+      <label for="cost">Giá</label>
+      <input type="number" id="cost" name="cost" value="${device.cost}" readonly>
+    </div>
+    <div class="form-group">
+      <label for="description">Mô tả</label>
+      <textarea id="description" name="description" readonly>${device.description}</textarea>
+    </div>
+    <div class="form-group">
+      <label for="userName">Tên người mượn</label>
+      <input type="text" id="userName" name="userName" list="userList" required>
+      <datalist id="userList"></datalist>
+    </div>
+    <div class="form-actions">
+      <button type="button" class="btn btn-secondary" onclick="modal.hide()">Hủy</button>
+      <button type="submit" class="btn btn-primary">Xác nhận mượn</button>
+    </div>
+  </form>
+`;
+
 // Hàm xử lý chỉnh sửa thiết bị
 async function editDevice(row) {
   try {
@@ -118,6 +149,46 @@ async function deleteDevice(row) {
   }
 }
 
+const borrowDevice = async (row) => {
+  try {
+    const deviceId = row.id;
+    const device = await getDeviceById(deviceId);
+    modal.show("Mượn thiết bị", borrowDeviceFormTemplate(device));
+    const users = await getUsers();
+    const userList = document.getElementById("userList");
+    users.forEach((user) => {
+      const option = document.createElement("option");
+      option.value = `${user.firstName} ${user.lastName}`;
+      option.dataset.userId = user.id;
+      userList.appendChild(option);
+    });
+
+    const form = document.getElementById("borrowDeviceForm");
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      const userName = form.userName.value;
+      const selectedUser = users.find(
+        (user) => `${user.firstName} ${user.lastName}` === userName
+      );
+
+      if (!selectedUser) {
+        alert("Vui lòng chọn người dùng hợp lệ từ danh sách");
+        return;
+      }
+
+      try {
+        await borrowDeviceByUserId(selectedUser.id, [deviceId]);
+        modal.hide();
+        loadDevices();
+      } catch (error) {
+        console.error("Error borrowing device:", error);
+      }
+    };
+  } catch (error) {
+    console.error("Error borrowing device:", error);
+  }
+};
+
 // Bảng dữ liệu
 const devicesTable = new DataTable("devices-container", {
   title: "Quản lý thiết bị",
@@ -154,6 +225,12 @@ const devicesTable = new DataTable("devices-container", {
     { field: "statusName", title: "Trạng thái" },
   ],
   actions: [
+    {
+      label: "Mượn",
+      class: "borrow",
+      onClick: (row) => borrowDevice(row),
+      showIf: (row) => row.statusName === "Available",
+    },
     { label: "Sửa", class: "edit", onClick: (row) => editDevice(row) },
     { label: "Xóa", class: "delete", onClick: (row) => deleteDevice(row) },
   ],

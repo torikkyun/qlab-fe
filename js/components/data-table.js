@@ -97,11 +97,17 @@ class DataTable {
         td.className = "actions";
 
         this.config.actions.forEach((action) => {
-          const button = document.createElement("button");
-          button.className = `action-btn ${action.class || ""}`;
-          button.textContent = action.label;
-          button.onclick = () => action.onClick(row);
-          td.appendChild(button);
+          if (!action.showIf || action.showIf(row)) {
+            const button = document.createElement("button");
+            button.className = `action-btn ${action.class || ""}`;
+            button.textContent = action.label;
+            if (!action.disabled) {
+              button.onclick = () => action.onClick(row);
+            } else {
+              button.disabled = true;
+            }
+            td.appendChild(button);
+          }
         });
 
         tr.appendChild(td);

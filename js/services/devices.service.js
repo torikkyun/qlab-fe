@@ -144,3 +144,59 @@ const deleteDeviceById = async (deviceId) => {
     throw error;
   }
 };
+
+const borrowDeviceByUserId = async (userId, deviceIds) => {
+  try {
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      window.location.href = "/pages/signin.html";
+      return;
+    }
+    await axios.post(
+      `http://localhost:3000/api/loans/borrow`,
+      {
+        userId: userId,
+        devices: deviceIds.map((deviceId) => ({ deviceId: deviceId })),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("access_token");
+      window.location.href = "/pages/signin.html";
+    }
+    throw error;
+  }
+};
+
+const returnDeviceByUserId = async (userId, deviceIds) => {
+  try {
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      window.location.href = "/pages/signin.html";
+      return;
+    }
+    await axios.post(
+      `http://localhost:3000/api/loans/return`,
+      {
+        userId: userId,
+        devices: deviceIds,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("access_token");
+      window.location.href = "/pages/signin.html";
+    }
+    throw error;
+  }
+};
