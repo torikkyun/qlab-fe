@@ -46,3 +46,4 @@ function loadLayout() {
 }
 
 document.addEventListener("DOMContentLoaded", loadLayout);
+const API_BASE_URL = "http://localhost:3000/api/";

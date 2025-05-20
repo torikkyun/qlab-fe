@@ -6,7 +6,7 @@ const getProjects = async () => {
       return;
     }
 
-    const response = await axios.get("http://localhost:3000/api/projects", {
+    const response = await axios.get(`${API_BASE_URL}/projects`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -30,14 +30,11 @@ const getProjectById = async (projectId) => {
       return;
     }
 
-    const response = await axios.get(
-      `http://localhost:3000/api/projects/${projectId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.get(`${API_BASE_URL}/projects/${projectId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -58,7 +55,7 @@ const createProject = async (projectData) => {
     }
 
     const response = await axios.post(
-      "http://localhost:3000/api/projects/",
+      `${API_BASE_URL}/projects/`,
       {
         name: projectData.name,
         startDate: projectData.startDate,
@@ -92,7 +89,7 @@ const updateProject = async (projectId, projectData) => {
     }
 
     const response = await axios.patch(
-      `http://localhost:3000/api/projects/${projectId}`,
+      `${API_BASE_URL}/projects/${projectId}`,
       {
         name: projectData.name,
         startDate: projectData.startDate,
@@ -126,7 +123,7 @@ const deleteProjectById = async (projectId) => {
     }
 
     const response = await axios.delete(
-      `http://localhost:3000/api/projects/${projectId}`,
+      `${API_BASE_URL}/projects/${projectId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

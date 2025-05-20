@@ -6,7 +6,7 @@ const getLoans = async () => {
       return;
     }
 
-    const response = await axios.get("http://localhost:3000/api/loans", {
+    const response = await axios.get(`${API_BASE_URL}/loans`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -30,14 +30,11 @@ const getLoanByUserId = async (userId) => {
       return;
     }
 
-    const response = await axios.get(
-      `http://localhost:3000/api/loans/${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.get(`${API_BASE_URL}/loans/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -56,14 +53,11 @@ const getLoanStatistics = async () => {
       window.location.href = "/pages/signin.html";
       return;
     }
-    const response = await axios.get(
-      `http://localhost:3000/api/loans/statistics`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.get(`${API_BASE_URL}/loans/statistics`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 401) {

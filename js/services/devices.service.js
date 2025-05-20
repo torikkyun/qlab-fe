@@ -6,7 +6,7 @@ const getDevices = async () => {
       return;
     }
 
-    const response = await axios.get("http://localhost:3000/api/devices", {
+    const response = await axios.get(`${API_BASE_URL}/devices`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -30,14 +30,11 @@ const getDeviceById = async (deviceId) => {
       return;
     }
 
-    const response = await axios.get(
-      `http://localhost:3000/api/devices/${deviceId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.get(`${API_BASE_URL}/devices/${deviceId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -58,7 +55,7 @@ const createDevice = async (deviceData) => {
     }
 
     const response = await axios.post(
-      "http://localhost:3000/api/devices/",
+      `${API_BASE_URL}/devices/`,
       {
         name: deviceData.name,
         code: deviceData.code,
@@ -93,7 +90,7 @@ const updateDevice = async (deviceId, deviceData) => {
     }
 
     const response = await axios.patch(
-      `http://localhost:3000/api/devices/${deviceId}`,
+      `${API_BASE_URL}/devices/${deviceId}`,
       {
         name: deviceData.name,
         code: deviceData.code,
@@ -126,14 +123,11 @@ const deleteDeviceById = async (deviceId) => {
       return;
     }
 
-    const response = await axios.delete(
-      `http://localhost:3000/api/devices/${deviceId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.delete(`${API_BASE_URL}/devices/${deviceId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -153,7 +147,7 @@ const borrowDeviceByUserId = async (userId, deviceIds) => {
       return;
     }
     await axios.post(
-      `http://localhost:3000/api/loans/borrow`,
+      `${API_BASE_URL}/loans/borrow`,
       {
         userId: userId,
         devices: deviceIds.map((deviceId) => ({ deviceId: deviceId })),
@@ -181,7 +175,7 @@ const returnDeviceByUserId = async (userId, deviceIds) => {
       return;
     }
     await axios.post(
-      `http://localhost:3000/api/loans/return`,
+      `${API_BASE_URL}/loans/return`,
       {
         userId: userId,
         devices: deviceIds,
@@ -208,14 +202,11 @@ const getDeviceStatistics = async () => {
       window.location.href = "/pages/signin.html";
       return;
     }
-    const response = await axios.get(
-      `http://localhost:3000/api/devices/statistics`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.get(`${API_BASE_URL}/devices/statistics`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 401) {

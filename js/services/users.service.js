@@ -6,7 +6,7 @@ const getUsers = async () => {
       return;
     }
 
-    const response = await axios.get("http://localhost:3000/api/users", {
+    const response = await axios.get(`${API_BASE_URL}/users`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -30,14 +30,11 @@ const getUserById = async (userId) => {
       return;
     }
 
-    const response = await axios.get(
-      `http://localhost:3000/api/users/${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.get(`${API_BASE_URL}/users/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -58,7 +55,7 @@ const createUser = async (userData) => {
     }
 
     const response = await axios.post(
-      "http://localhost:3000/api/users/",
+      `${API_BASE_URL}/users/`,
       {
         firstName: userData.firstName,
         lastName: userData.lastName,
@@ -93,7 +90,7 @@ const updateUser = async (userId, userData) => {
     }
 
     const response = await axios.patch(
-      `http://localhost:3000/api/users/${userId}`,
+      `${API_BASE_URL}/users/${userId}`,
       {
         firstName: userData.firstName,
         lastName: userData.lastName,
@@ -126,14 +123,11 @@ const deleteUserById = async (userId) => {
       return;
     }
 
-    const response = await axios.delete(
-      `http://localhost:3000/api/users/${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.delete(`${API_BASE_URL}/users/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -152,14 +146,11 @@ const getUserStatistics = async () => {
       window.location.href = "/pages/signin.html";
       return;
     }
-    const response = await axios.get(
-      `http://localhost:3000/api/users/statistics`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.get(`${API_BASE_URL}/users/statistics`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 401) {
