@@ -25,6 +25,11 @@ function setHeaderTitle() {
   }
 }
 
+function handleLogout() {
+  localStorage.removeItem("access_token");
+  window.location.href = "/pages/signin.html";
+}
+
 function loadLayout() {
   axios
     .get("/partials/header.html")
