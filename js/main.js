@@ -48,6 +48,13 @@ function loadLayout() {
       initializeSidebarToggle();
     })
     .catch((error) => console.error("Lỗi khi load sidebar:", error));
+
+  axios
+    .get("/partials/footer.html")
+    .then((response) => {
+      document.getElementById("footer-container").innerHTML = response.data;
+    })
+    .catch((error) => console.error("Lỗi khi load footer:", error));
 }
 
 document.addEventListener("DOMContentLoaded", loadLayout);

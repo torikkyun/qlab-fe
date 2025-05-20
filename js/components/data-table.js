@@ -115,7 +115,14 @@ class DataTable {
     });
 
     table.appendChild(tbody);
-    section.appendChild(table);
+    // section.appendChild(table);
+
+    // Tạo wrapper cho table
+    const tableWrapper = document.createElement("div");
+    tableWrapper.className = "data-table-wrapper";
+    tableWrapper.appendChild(table);
+
+    section.appendChild(tableWrapper);
 
     // Clear và append section mới
     this.container.innerHTML = "";
