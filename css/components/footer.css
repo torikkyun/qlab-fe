@@ -1,8 +1,6 @@
 footer {
   display: flex;
   justify-content: center;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
   margin-top: auto;
 }
 
@@ -12,6 +10,6 @@ footer {
 
 .footer-text a {
   text-decoration: none;
-  color: var(--color-secondary);
+  color: var(--color-accent);
   cursor: pointer;
 }

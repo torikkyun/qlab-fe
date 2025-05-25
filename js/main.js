@@ -1,65 +1,85 @@
-// function getPageTitle() {
-//   const path = window.location.pathname;
-//   switch (path) {
-//     case "/pages/dashboard.html":
-//       return "Trang chủ";
-//     case "/pages/users.html":
-//       return "Người dùng";
-//     case "/pages/devices.html":
-//       return "Thiết bị";
-//     case "/pages/projects.html":
-//       return "Dự án";
-//     case "/pages/profile.html":
-//       return "Hồ sơ";
-//     case "/pages/loans.html":
-//       return "Mượn trả thiết bị";
-//     default:
-//       return "Trang chủ";
-//   }
-// }
+function getPageTitle() {
+  const path = window.location.pathname;
+  console.log(path);
+  switch (path) {
+    case "/dashboard.html":
+      return "Trang chủ";
+    case "/users.html":
+      return "Người dùng";
+    case "/devices.html":
+      return "Thiết bị";
+    case "/projects.html":
+      return "Dự án";
+    case "/loans.html":
+      return "Mượn trả thiết bị";
+    default:
+      return "Trang chủ";
+  }
+}
 
-// function setHeaderTitle() {
-//   const headerTitle = document.querySelector(".header-title");
-//   if (headerTitle) {
-//     headerTitle.textContent = getPageTitle();
-//   }
-// }
+function setHeaderTitle() {
+  const headerTitle = document.querySelector(".title");
+  // console.log(headerTitle);
+  if (headerTitle) {
+    headerTitle.textContent = getPageTitle();
+  }
+}
 
-// function handleLogout() {
-//   localStorage.removeItem("access_token");
-//   window.location.href = "/pages/signin.html";
-// }
+function handleLogout() {
+  localStorage.removeItem("access_token");
+  window.location.href = "signin.html";
+}
 
 function loadLayout() {
-  axios
-    .get("/components/header.html")
-    .then((response) => {
-      document.getElementById("header").outerHTML = response.data;
-      // setHeaderTitle();
-    })
-    .catch((error) => console.error("Lỗi khi load header:", error));
+  const headerElement = document.getElementById("header");
+  if (headerElement) {
+    axios
+      .get("/components/header.html")
+      .then((response) => {
+        headerElement.outerHTML = response.data;
+      })
+      .catch((error) => console.error("Lỗi khi load header:", error));
+  }
 
-  axios
-    .get("/components/sidebar.html")
-    .then((response) => {
-      document.getElementById("sidebar").outerHTML = response.data;
+  const sidebarElement = document.getElementById("sidebar");
+  if (sidebarElement) {
+    axios
+      .get("/components/sidebar.html")
+      .then((response) => {
+        sidebarElement.outerHTML = response.data;
 
-      // Thêm sự kiện click ẩn hiện sidebar
-      const toggle = document.querySelector(".btn-toggle");
-      const sidebar = document.querySelector("aside");
-      toggle.addEventListener("click", () => {
-        sidebar.classList.toggle("show-sidebar");
-        sidebar.classList.toggle("hide-sidebar");
-      });
-    })
-    .catch((error) => console.error("Lỗi khi load sidebar:", error));
+        // Thêm sự kiện click ẩn hiện sidebar
+        const toggle = document.querySelector(".btn-toggle");
+        const sidebar = document.querySelector("aside");
+        if (toggle && sidebar) {
+          toggle.addEventListener("click", () => {
+            sidebar.classList.toggle("show-sidebar");
+            sidebar.classList.toggle("hide-sidebar");
+          });
+        }
 
-  axios
-    .get("/components/footer.html")
-    .then((response) => {
-      document.getElementById("footer").outerHTML = response.data;
-    })
-    .catch((error) => console.error("Lỗi khi load footer:", error));
+        // Thêm active class cho link hiện tại
+        const currentPath = window.location.pathname;
+        const sidebarLinks = document.querySelectorAll(".sidebar-links");
+        sidebarLinks.forEach((link) => link.classList.remove("active"));
+        sidebarLinks.forEach((link) => {
+          if (link.getAttribute("href") === currentPath.split("/").pop()) {
+            link.classList.add("active");
+          }
+        });
+      })
+      .catch((error) => console.error("Lỗi khi load sidebar:", error));
+  }
+
+  const footerElement = document.getElementById("footer");
+  if (footerElement) {
+    axios
+      .get("/components/footer.html")
+      .then((response) => {
+        footerElement.outerHTML = response.data;
+      })
+      .catch((error) => console.error("Lỗi khi load footer:", error));
+  }
 }
 
 document.addEventListener("DOMContentLoaded", loadLayout);

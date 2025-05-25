@@ -1,48 +1,39 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>QLAB - Quản lý dự án</title>
-    <!-- Google Fonts -->
+    <title>Dashboard</title>
+    <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;1,300&display=swap"
       rel="stylesheet"
     />
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/components/header.css" />
-    <link rel="stylesheet" href="../css/components/footer.css" />
-    <link rel="stylesheet" href="../css/components/sidebar.css" />
-    <link rel="stylesheet" href="../css/components/modal.css" />
-    <link rel="stylesheet" href="../css/components/data-table.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- CSS custom -->
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/components/header.css" />
+    <link rel="stylesheet" href="css/components/sidebar.css" />
+    <link rel="stylesheet" href="css/components/footer.css" />
   </head>
   <body>
+    <header id="header"></header>
     <div class="container">
-      <!-- Sidebar -->
-      <div id="sidebar-container"></div>
-
-      <!-- Main Content -->
-      <main class="main-content">
-        <!-- Header -->
-        <div id="header-container"></div>
-
-        <!-- Users Section -->
-        <div id="users-container"></div>
-      </main>
+      <aside id="sidebar"></aside>
     </div>
-    <!-- Footer -->
-    <div id="footer-container"></div>
+    <footer id="footer"></footer>
+    <!-- Thư viện -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../js/components/sidebar.js"></script>
-    <script src="../js/components/data-table.js"></script>
-    <script src="../js/components/modal.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/services/users.service.js"></script>
-    <script src="../js/pages/users.js"></script>
+    <!-- Script -->
+    <script src="js/main.js"></script>
   </body>
 </html>
