@@ -14,6 +14,7 @@ header {
   color: var(--color-secondary);
 }
 
+.header-right .btn-logout,
 .header-left .btn-toggle {
   background: none;
   border: none;
@@ -24,8 +25,13 @@ header {
   color: var(--color-secondary);
 }
 
+.header-right .btn-logout i,
 .header-left .btn-toggle i {
   width: 1.5rem;
   font-size: 1.25rem;
   text-align: center;
+}
+
+.header-middle .title {
+  color: var(--color-secondary);
 }

@@ -44,6 +44,7 @@ function loadLayout() {
     .then((response) => {
       document.getElementById("sidebar").outerHTML = response.data;
 
+      // Thêm sự kiện click ẩn hiện sidebar
       const toggle = document.querySelector(".btn-toggle");
       const sidebar = document.querySelector("aside");
       toggle.addEventListener("click", () => {
@@ -53,12 +54,12 @@ function loadLayout() {
     })
     .catch((error) => console.error("Lỗi khi load sidebar:", error));
 
-  // axios
-  //   .get("/components/footer.html")
-  //   .then((response) => {
-  //     document.getElementById("footer-container").innerHTML = response.data;
-  //   })
-  //   .catch((error) => console.error("Lỗi khi load footer:", error));
+  axios
+    .get("/components/footer.html")
+    .then((response) => {
+      document.getElementById("footer").outerHTML = response.data;
+    })
+    .catch((error) => console.error("Lỗi khi load footer:", error));
 }
 
 document.addEventListener("DOMContentLoaded", loadLayout);
