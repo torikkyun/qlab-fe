@@ -3,38 +3,65 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>QLAB - Đăng nhập</title>
+    <title>Đăng nhập</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;1,300&display=swap"
       rel="stylesheet"
     />
+    <!-- Icon -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/pages/signin.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/pages/signin.css" />
   </head>
   <body>
-    <div class="signin-container">
-      <div class="signin-box">
-        <h1>Welcome!</h1>
-        <form class="signin-form" onsubmit="handleLogin(event)">
+    <div class="container">
+      <div class="signin-form">
+        <h2>Đăng nhập</h2>
+        <form onsubmit="handleLogin(event)">
           <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Địa chỉ email" required />
+            <label for="email"> <span class="material-symbols-outlined"> mail </span>Email</label>
+            <input type="text" id="email" name="email" />
           </div>
           <div class="form-group">
-            <label for="password">Mật khẩu</label>
-            <input type="password" id="password" name="password" placeholder="Mật khẩu" required />
+            <label for="password"><span class="material-symbols-outlined"> lock </span>Mật khẩu</label>
+            <input type="password" id="password" name="password" />
           </div>
-          <button type="submit" class="btn-signin">Đăng nhập</button>
+          <button type="submit" class="btn-signin">
+            <span class="material-symbols-outlined"> login </span>Đăng nhập
+          </button>
         </form>
-        <p class="signup-link">Chưa có tài khoản? <a href="/pages/signup.html">Đăng ký</a></p>
+        <div class="signin-form-footer">
+          <p>
+            Bạn chưa có tài khoản?
+            <a href="signup.html">Đăng ký</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="notification-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="material-symbols-outlined">error</span>
+          <h3 class="modal-title">Lỗi</h3>
+          <button class="modal-close">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-message">Đây là lỗi</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-primary modal-confirm">OK</button>
+        </div>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../js/services/auth.service.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pages/signin.js"></script>
+    <script src="js/services/auth.service.js"></script>
   </body>
 </html>

@@ -1,124 +1,150 @@
-body {
-  background: linear-gradient(135deg, #40e0d0, #20b2aa);
-}
-
-.signin-container {
-  display: flex;
+.container {
+  flex: 1;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-}
-
-.signin-box {
-  background: white;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-}
-
-.signin-box h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 30px;
-  font-weight: 600;
 }
 
 .signin-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  color: var(--color-secondary);
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-primary-border);
+  border-radius: 1rem;
+  padding: 1rem;
+  width: 100%;
+  max-width: 16rem;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+h2 {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
+.btn-signin,
 .form-group label {
-  color: #666;
-  font-size: 14px;
-  font-weight: 500;
-  flex: 1;
-  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+button span,
+label span {
+  margin-right: 0.25rem;
+  font-size: 1.25rem;
 }
 
 .form-group input {
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 14px;
-  transition: border-color 0.3s ease;
-  font-family: "Open Sans", sans-serif;
-  flex: 2;
+  color: var(--color-secondary);
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
 }
 
 .form-group input:focus {
-  outline: none;
-  border-color: #40e0d0;
+  border-color: var(--color-accent);
+}
+
+.form-group input[type="password"]::-ms-reveal,
+.form-group input[type="password"]::-ms-clear {
+  filter: invert(1);
 }
 
 .btn-signin {
-  background: #40e0d0;
-  color: white;
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  background-color: var(--color-accent);
   border: none;
-  padding: 12px;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: 600;
+  justify-content: center;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .btn-signin:hover {
-  background: #20b2aa;
+  background-color: var(--color-accent-hover);
 }
 
-.signup-link {
-  text-align: center;
-  margin-top: 20px;
-  color: #666;
-  font-size: 14px;
-}
-
-.signup-link a {
-  color: #40e0d0;
+.signin-form-footer a {
+  color: var(--color-accent);
   text-decoration: none;
-  font-weight: 600;
 }
 
-.signup-link a:hover {
+.signin-form-footer a:hover {
+  color: var(--color-accent-hover);
   text-decoration: underline;
 }
 
-.form-group.name-fields {
+.modal {
+  color: var(--color-secondary);
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal.show {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
 }
 
-.form-group.name-fields .form-group {
-  max-width: 45%;
+.modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 350px;
+  background: var(--color-primary-light);
+  border-radius: 0.5rem;
+  padding: 1rem;
 }
 
-/* Responsive Design */
-@media (max-width: 480px) {
-  .signin-box {
-    padding: 20px;
-  }
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
-  .signin-box h1 {
-    font-size: 24px;
-  }
+.modal-title {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--color-text);
+  flex-grow: 1;
+}
 
-  .form-group input {
-    padding: 10px;
-  }
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  padding: 0;
+}
 
-  .btn-signin {
-    padding: 10px;
-  }
+.modal-close span {
+  margin: 0;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-footer button {
+  background-color: var(--color-accent);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.modal-footer button:hover {
+  background-color: var(--color-accent-hover);
 }

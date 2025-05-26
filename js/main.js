@@ -1,6 +1,5 @@
 function getPageTitle() {
   const path = window.location.pathname;
-  console.log(path);
   switch (path) {
     case "/dashboard.html":
       return "Trang chủ";
@@ -19,7 +18,6 @@ function getPageTitle() {
 
 function setHeaderTitle() {
   const headerTitle = document.querySelector(".title");
-  // console.log(headerTitle);
   if (headerTitle) {
     headerTitle.textContent = getPageTitle();
   }
@@ -37,6 +35,7 @@ function loadLayout() {
       .get("/components/header.html")
       .then((response) => {
         headerElement.outerHTML = response.data;
+        setHeaderTitle();
       })
       .catch((error) => console.error("Lỗi khi load header:", error));
   }
@@ -83,4 +82,4 @@ function loadLayout() {
 }
 
 document.addEventListener("DOMContentLoaded", loadLayout);
-const API_BASE_URL = "http://localhost:3000/api/";
+const API_BASE_URL = "http://localhost:3000/api";

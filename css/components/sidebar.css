@@ -1,5 +1,6 @@
 .show-sidebar {
   display: flex;
+  margin-right: 2rem;
 }
 
 .hide-sidebar {
@@ -24,12 +25,6 @@ aside a {
   border-radius: 0.5rem;
 }
 
-.sidebar-links i {
-  width: 1.5rem;
-  font-size: 1rem;
-  text-align: center;
-}
-
 .sidebar-links:hover {
   background-color: var(--color-accent);
   font-weight: bold;
@@ -39,4 +34,9 @@ aside a {
 .active {
   font-weight: bold;
   color: var(--color-accent);
+}
+
+@media screen and (max-width: 1024px) {
+  .show-sidebar {
+  }
 }
