@@ -45,16 +45,14 @@ async function handleRegister(event) {
       if (response.data.access_token) {
         localStorage.setItem("access_token", response.data.access_token);
       }
-      window.location.href = "/pages/dashboard.html";
+      window.location.href = "/dashboard.html";
     }
   } catch (error) {
     if (error.response) {
-      alert(error.response.data.message || "Đăng ký thất bại");
-    } else if (error.request) {
-      alert("Không thể kết nối đến server");
+      errorMessage = error.response.data.message || errorMessage;
     } else {
-      alert("Có lỗi xảy ra");
+      errorMessage = "Có lỗi xảy ra";
     }
-    console.error("Lỗi đăng nhập:", error);
+    showModal(errorMessage);
   }
 }

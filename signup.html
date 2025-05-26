@@ -14,43 +14,68 @@
     <!-- Icon -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/pages/signin.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/pages/signup.css" />
   </head>
   <body>
-    <div class="signin-container">
-      <div class="signin-box">
-        <h1>Welcome!</h1>
-        <form class="signin-form" onsubmit="handleRegister(event)">
-          <div class="form-group name-fields">
+    <div class="container">
+      <div class="signup-form">
+        <h2>Đăng ký</h2>
+        <form onsubmit="handleRegister(event)">
+          <div class="name-field">
             <div class="form-group">
-              <label for="firstName">Tên</label>
+              <label for="firstName"> <span class="material-symbols-outlined"> person </span>Tên</label>
               <input type="firstName" id="firstName" name="firstName" placeholder="Tên" required />
             </div>
             <div class="form-group">
-              <label for="lastName">Họ</label>
+              <label for="lastName"> <span class="material-symbols-outlined"> person </span>Họ</label>
               <input type="lastName" id="lastName" name="lastName" placeholder="Họ" required />
             </div>
           </div>
           <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Địa chỉ email" required />
+            <label for="email"><span class="material-symbols-outlined"> mail </span>Email</label>
+            <input type="email" id="email" name="email" placeholder="Email" required />
           </div>
           <div class="form-group">
-            <label for="phone">Số điện thoại</label>
+            <label for="phone"> <span class="material-symbols-outlined"> call </span>Số điện thoại</label>
             <input type="phone" id="phone" name="phone" placeholder="Số điện thoại" required />
           </div>
           <div class="form-group">
-            <label for="password">Mật khẩu</label>
+            <label for="password"><span class="material-symbols-outlined"> lock </span>Mật khẩu</label>
             <input type="password" id="password" name="password" placeholder="Mật khẩu" required />
           </div>
-          <button type="submit" class="btn-signin">Đăng ký</button>
+          <button type="submit" class="btn-signup">
+            <span class="material-symbols-outlined"> person_add </span>Đăng ký
+          </button>
         </form>
-        <p class="signup-link">Đã có tài khoản? <a href="/pages/signin.html">Đăng nhập</a></p>
+        <div class="signup-form-footer">
+          <p>
+            Bạn đã có tài khoản?
+            <a href="signin.html">Đăng nhập</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="notification-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="material-symbols-outlined">error</span>
+          <h3 class="modal-title">Lỗi</h3>
+          <button class="modal-close">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-message">Đây là lỗi</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-primary modal-confirm">OK</button>
+        </div>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../js/services/auth.service.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pages/signin.js"></script>
+    <script src="js/services/auth.service.js"></script>
   </body>
 </html>
