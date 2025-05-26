@@ -23,6 +23,16 @@ function setHeaderTitle() {
   }
 }
 
+function checkAccessToken() {
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    window.location.href = "signin.html";
+    return;
+  } else {
+    return token;
+  }
+}
+
 function handleLogout() {
   localStorage.removeItem("access_token");
   window.location.href = "signin.html";

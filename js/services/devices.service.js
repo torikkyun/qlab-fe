@@ -196,13 +196,11 @@ const returnDeviceByUserId = async (userId, deviceIds) => {
 };
 
 const getDeviceStatistics = async () => {
-  await axios
-    .get(`${API_BASE_URL}/devices/statistics`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((res) => {
-      return res.data;
-    });
+  const token = checkAccessToken();
+  const response = await axios.get(`${API_BASE_URL}/devices/statistics`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
 };
