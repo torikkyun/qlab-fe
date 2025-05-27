@@ -1,6 +1,9 @@
 .show-sidebar {
   display: flex;
   margin-right: 2rem;
+  position: sticky;
+  top: 5.5rem;
+  height: 100%;
 }
 
 .hide-sidebar {
@@ -23,6 +26,7 @@ aside a {
   gap: 0.5rem;
   padding: 0.5rem 0.5rem 0.5rem 0.25rem;
   border-radius: 0.5rem;
+  scroll-margin-top: 5rem;
 }
 
 .sidebar-links:hover {
@@ -36,7 +40,19 @@ aside a {
   color: var(--color-accent);
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 480px) {
+  body {
+    gap: 0;
+  }
   .show-sidebar {
+    position: fixed;
+    background-color: var(--color-primary);
+    height: 100%;
+    top: 4rem;
+    margin-top: -1rem;
+    padding-top: 1rem;
+    width: 160px;
+    z-index: 100;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   }
 }

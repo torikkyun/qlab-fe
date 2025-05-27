@@ -4,6 +4,9 @@ header {
   align-items: center;
   width: 100%;
   top: 0;
+  position: sticky;
+  z-index: 1000;
+  background-color: var(--color-primary);
 }
 
 .header-right,
@@ -50,6 +53,23 @@ header {
 
 @media screen and (max-width: 480px) {
   .header-middle {
-    margin-left: 2.75rem;
+    margin-left: 1.5rem;
+  }
+
+  .header-left .logo,
+  .header-middle .title {
+    font-size: 1.25rem;
+  }
+
+  .header-right .btn:hover,
+  .header-left .btn-toggle:hover {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+  }
+
+  .header-right .btn:active,
+  .header-left .btn-toggle:active {
+    background-color: var(--color-accent);
+    color: var(--color-primary);
   }
 }

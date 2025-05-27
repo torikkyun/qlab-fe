@@ -61,3 +61,19 @@
   align-items: center;
   justify-content: center;
 }
+
+@media screen and (min-width: 1024px) {
+  .card-container .card p {
+    font-size: 0.85rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .card-container .card {
+    gap: 0.5rem;
+  }
+
+  .card-container .card p {
+    font-size: 0.65rem;
+  }
+}
