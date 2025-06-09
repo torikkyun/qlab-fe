@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý người dùng</title>
+    <link rel="stylesheet" href="../css/pages/dashboard.css">
+    <link rel="stylesheet" href="../css/components/header.css">
+    <link rel="stylesheet" href="../css/components/sidebar.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Toggle Button -->
+        <button id="sidebar-toggle" class="sidebar-toggle-btn">
+            <span id="sidebar-toggle-icon">☰</span>
+        </button>
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header" style="white-space: nowrap; display: flex; align-items: center; gap: 8px;">
+                <h2 style="white-space: nowrap; font-size: 22px; margin: 0;">Quản lí LAB</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><span class="icon">🏠</span> <a href="trang chu.html" style="text-decoration:none; color:inherit;">Trang chủ</a></li>
+                    <li class="active"><span class="icon">👤</span> <a href="ql nguoi dung.html" style="text-decoration:none; color:inherit;">Nhân viên</a></li>
+                    <li><span class="icon">🖥️</span> <a href="trang ql thiết bị.html" style="text-decoration:none; color:inherit;">Thiết bị</a></li>
+                    <li><span class="icon">📁</span> <a href="ql du an.html" style="text-decoration:none; color:inherit;">Dự án</a></li>
+                    <li><span class="icon">🔄</span> Mượn thiết bị</li>
+                </ul>
+                <div class="sidebar-bottom">
+                    <ul>
+                        <li><span class="icon">⚙️</span> Cài đặt</li>
+                        <li><span class="icon">🔓</span> Đăng xuất</li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left"></div>
+                <div class="header-right">
+                    <span class="icon">🔔</span>
+                    <span class="user-info">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="avatar" class="avatar">
+                        <span>Kiên </span>
+                        <span class="role">Admin</span>
+                    </span>
+                </div>
+            </header>
+            <!-- User Management Content -->
+            <section class="dashboard">
+                <h1>Quản lý người dùng</h1>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                    <h2 style="margin: 0;">Danh sách người dùng</h2>
+                    <button class="btn-detail" id="btn-add-user">+ Thêm người dùng</button>
+                </div>
+                <table class="project-table" id="user-table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Họ tên</th>
+                            <th>Email</th>
+                            <th>Vai trò</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-table-body">
+                        <!-- Dữ liệu mẫu -->
+                        <tr>
+                            <td>1</td>
+                            <td>Nguyễn Văn A</td>
+                            <td>vana@gmail.com</td>
+                            <td>Admin</td>
+                            <td><span class="status-done">Hoạt động</span></td>
+                            <td>
+                                <button class="btn-detail btn-edit">Sửa</button>
+                                <button class="btn-detail btn-delete" style="background:#e74c3c;">Xoá</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Trần Thị B</td>
+                            <td>thib@gmail.com</td>
+                            <td>Nhân viên</td>
+                            <td><span class="status-done" style="background:#f1c40f; color:#fff;">Tạm khoá</span></td>
+                            <td>
+                                <button class="btn-detail btn-edit">Sửa</button>
+                                <button class="btn-detail btn-delete" style="background:#e74c3c;">Xoá</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Pagination Footer -->
+                <div id="pagination-footer" style="display:flex; align-items:center; justify-content:space-between; margin-top:12px;">
+                    <div id="page-info" style="font-weight:500;">Trang 1/1</div>
+                    <div>
+                        <button id="btn-prev-page" class="btn-detail" style="min-width:36px; padding:4px 0;">&lt;</button>
+                        <button id="btn-next-page" class="btn-detail" style="min-width:36px; padding:4px 0;">&gt;</button>
+                    </div>
+                </div>
+            </section>
+            <!-- Modal Thêm/Sửa người dùng (ẩn/hiện bằng JS) -->
+            <div id="user-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.2); align-items:center; justify-content:center; z-index:2000;">
+                <form id="user-form" style="background:#fff; padding:32px 24px; border-radius:12px; min-width:320px; max-width:90vw; box-shadow:0 2px 16px rgba(0,0,0,0.12); display:flex; flex-direction:column; gap:16px;">
+                    <h3 id="modal-title">Thêm người dùng</h3>
+                    <input type="text" id="user-name" placeholder="Họ tên" required>
+                    <input type="email" id="user-email" placeholder="Email" required>
+                    <select id="user-role">
+                        <option value="Admin">Admin</option>
+                        <option value="Nhân viên">Nhân viên</option>
+                    </select>
+                    <select id="user-status">
+                        <option value="Hoạt động">Hoạt động</option>
+                        <option value="Tạm khoá">Tạm khoá</option>
+                    </select>
+                    <div style="display:flex; gap:12px; justify-content:flex-end;">
+                        <button type="button" class="btn-detail" id="btn-cancel" style="background:#aaa;">Huỷ</button>
+                        <button type="submit" class="btn-detail" id="btn-save">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+    <script>
+    // Sidebar toggle logic
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('sidebar-closed');
+        if (sidebar.classList.contains('sidebar-closed')) {
+            sidebar.style.marginLeft = '-250px';
+        } else {
+            sidebar.style.marginLeft = '0';
+        }
+    });
+
+    // User CRUD logic
+    const userModal = document.getElementById('user-modal');
+    const btnAddUser = document.getElementById('btn-add-user');
+    const btnCancel = document.getElementById('btn-cancel');
+    const userForm = document.getElementById('user-form');
+    const userTableBody = document.getElementById('user-table-body');
+    let editRow = null;
+
+    // --- Pagination Logic ---
+    const USERS_PER_PAGE = 10;
+    let users = [
+        { name: 'Nguyễn Văn A', email: 'vana@gmail.com', role: 'Admin', status: 'Hoạt động' },
+        { name: 'Trần Thị B', email: 'thib@gmail.com', role: 'Nhân viên', status: 'Tạm khoá' },
+        { name: 'Lê Văn C', email: 'c@gmail.com', role: 'Nhân viên', status: 'Hoạt động' },
+        { name: 'Phạm Thị D', email: 'd@gmail.com', role: 'Nhân viên', status: 'Hoạt động' },
+        { name: 'Ngô Văn E', email: 'e@gmail.com', role: 'Admin', status: 'Tạm khoá' },
+        { name: 'Đỗ Thị F', email: 'f@gmail.com', role: 'Nhân viên', status: 'Hoạt động' },
+        { name: 'Bùi Văn G', email: 'g@gmail.com', role: 'Nhân viên', status: 'Hoạt động' },
+        // ...có thể thêm nhiều người dùng mẫu để test phân trang...
+    ];
+    let currentPage = 1;
+
+    function renderUserTable() {
+        const start = (currentPage - 1) * USERS_PER_PAGE;
+        const end = start + USERS_PER_PAGE;
+        const pageUsers = users.slice(start, end);
+        userTableBody.innerHTML = '';
+        pageUsers.forEach((user, idx) => {
+            const stt = start + idx + 1;
+            const statusHtml = user.status === 'Hoạt động'
+                ? '<span class="status-done">Hoạt động</span>'
+                : '<span class="status-done" style="background:#f1c40f; color:#fff;">Tạm khoá</span>';
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${stt}</td><td>${user.name}</td><td>${user.email}</td><td>${user.role}</td><td>${statusHtml}</td><td><button class="btn-detail btn-edit">Sửa</button> <button class="btn-detail btn-delete" style="background:#e74c3c;">Xoá</button></td>`;
+            userTableBody.appendChild(tr);
+        });
+        updatePaginationInfo();
+    }
+
+    function updatePaginationInfo() {
+        const totalPages = Math.ceil(users.length / USERS_PER_PAGE) || 1;
+        document.getElementById('page-info').innerText = `Trang ${currentPage}/${totalPages}`;
+        document.getElementById('btn-prev-page').disabled = currentPage === 1;
+        document.getElementById('btn-next-page').disabled = currentPage === totalPages;
+    }
+
+    document.getElementById('btn-prev-page').onclick = function() {
+        if (currentPage > 1) {
+            currentPage--;
+            renderUserTable();
+        }
+    };
+    document.getElementById('btn-next-page').onclick = function() {
+        const totalPages = Math.ceil(users.length / USERS_PER_PAGE) || 1;
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderUserTable();
+        }
+    };
+
+    // --- Override CRUD logic to update users array and re-render table ---
+    btnAddUser.onclick = function() {
+        userForm.reset();
+        document.getElementById('modal-title').innerText = 'Thêm người dùng';
+        userModal.style.display = 'flex';
+        editRow = null;
+    };
+    btnCancel.onclick = function() {
+        userModal.style.display = 'none';
+    };
+    userTableBody.onclick = function(e) {
+        if (e.target.classList.contains('btn-edit')) {
+            const rowIdx = e.target.closest('tr').rowIndex - 1;
+            const userIdx = (currentPage - 1) * USERS_PER_PAGE + rowIdx;
+            editRow = userIdx;
+            document.getElementById('modal-title').innerText = 'Sửa người dùng';
+            document.getElementById('user-name').value = users[userIdx].name;
+            document.getElementById('user-email').value = users[userIdx].email;
+            document.getElementById('user-role').value = users[userIdx].role;
+            document.getElementById('user-status').value = users[userIdx].status;
+            userModal.style.display = 'flex';
+        }
+        if (e.target.classList.contains('btn-delete')) {
+            const rowIdx = e.target.closest('tr').rowIndex - 1;
+            const userIdx = (currentPage - 1) * USERS_PER_PAGE + rowIdx;
+            if (confirm('Bạn có chắc muốn xoá người dùng này?')) {
+                users.splice(userIdx, 1);
+                // Nếu xoá hết trang hiện tại thì lùi về trang trước
+                const totalPages = Math.ceil(users.length / USERS_PER_PAGE) || 1;
+                if (currentPage > totalPages) currentPage = totalPages;
+                renderUserTable();
+            }
+        }
+    };
+    userForm.onsubmit = function(e) {
+        e.preventDefault();
+        const name = document.getElementById('user-name').value;
+        const email = document.getElementById('user-email').value;
+        const role = document.getElementById('user-role').value;
+        const status = document.getElementById('user-status').value;
+        if (editRow !== null) {
+            users[editRow] = { name, email, role, status };
+        } else {
+            users.push({ name, email, role, status });
+            // Nếu thêm vào trang mới thì chuyển sang trang đó
+            const totalPages = Math.ceil(users.length / USERS_PER_PAGE) || 1;
+            currentPage = totalPages;
+        }
+        userModal.style.display = 'none';
+        renderUserTable();
+    };
+    userModal.onclick = function(e) {
+        if (e.target === userModal) userModal.style.display = 'none';
+    };
+    // Khởi tạo bảng lần đầu
+    renderUserTable();
+    </script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý dự án</title>
+    <link rel="stylesheet" href="../css/pages/dashboard.css">
+    <link rel="stylesheet" href="../css/components/header.css">
+    <link rel="stylesheet" href="../css/components/sidebar.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Toggle Button -->
+        <button id="sidebar-toggle" class="sidebar-toggle-btn">
+            <span id="sidebar-toggle-icon">☰</span>
+        </button>
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header" style="white-space: nowrap; display: flex; align-items: center; gap: 8px;">
+                <h2 style="white-space: nowrap; font-size: 22px; margin: 0;">Quản lí LAB</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><span class="icon">🏠</span> <a href="trang chu.html" style="text-decoration:none; color:inherit;">Trang chủ</a></li>
+                    <li><span class="icon">👤</span> <a href="ql nguoi dung.html" style="text-decoration:none; color:inherit;">Nhân viên</a></li>
+                    <li><span class="icon">🖥️</span> <a href="trang ql thiết bị.html" style="text-decoration:none; color:inherit;">Thiết bị</a></li>
+                    <li class="active"><span class="icon">📁</span> <a href="ql du an.html" style="text-decoration:none; color:inherit;">Dự án</a></li>
+                    <li><span class="icon">🔄</span> <a href="muonthietbi.html" style="text-decoration:none; color:inherit;">Mượn thiết bị</a></li>
+                </ul>
+                <div class="sidebar-bottom">
+                    <ul>
+                        <li><span class="icon">⚙️</span> Cài đặt</li>
+                        <li><span class="icon">🔓</span> Đăng xuất</li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left"></div>
+                <div class="header-right">
+                    <span class="icon">🔔</span>
+                    <span class="user-info">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="avatar" class="avatar">
+                        <span>Kiên </span>
+                        <span class="role">Admin</span>
+                    </span>
+                </div>
+            </header>
+            <!-- Project Management Content -->
+            <section class="dashboard">
+                <h1>Quản lý dự án</h1>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                    <h2 style="margin: 0;">Danh sách dự án</h2>
+                    <button class="btn-detail" id="btn-add-project">+ Thêm dự án</button>
+                </div>
+                <table class="project-table" id="project-table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên dự án</th>
+                            <th>Bắt đầu</th>
+                            <th>Kết thúc</th>
+                            <th>Tiến độ</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="project-table-body">
+                        <!-- Dữ liệu mẫu sẽ được render bằng JS -->
+                    </tbody>
+                </table>
+                <!-- Pagination Footer -->
+                <div id="project-pagination-footer" style="display:flex; align-items:center; justify-content:space-between; margin-top:12px;">
+                    <div id="project-page-info" style="font-weight:500;">Trang 1/1</div>
+                    <div>
+                        <button id="btn-project-prev-page" class="btn-detail" style="min-width:36px; padding:4px 0;">&lt;</button>
+                        <button id="btn-project-next-page" class="btn-detail" style="min-width:36px; padding:4px 0;">&gt;</button>
+                    </div>
+                </div>
+            </section>
+            <!-- Modal Thêm/Sửa dự án -->
+            <div id="project-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.2); align-items:center; justify-content:center; z-index:2000;">
+                <form id="project-form" style="background:#fff; padding:32px 24px; border-radius:12px; min-width:320px; max-width:90vw; box-shadow:0 2px 16px rgba(0,0,0,0.12); display:flex; flex-direction:column; gap:16px;">
+                    <h3 id="project-modal-title">Thêm dự án</h3>
+                    <input type="text" id="project-name" placeholder="Tên dự án" required>
+                    <input type="date" id="project-start" required>
+                    <input type="date" id="project-end" required>
+                    <input type="number" id="project-progress" min="0" max="100" placeholder="Tiến độ (%)" required>
+                    <select id="project-status">
+                        <option value="Đang thực hiện">Đang thực hiện</option>
+                        <option value="Hoàn thành">Hoàn thành</option>
+                        <option value="Tạm dừng">Tạm dừng</option>
+                    </select>
+                    <div style="display:flex; gap:12px; justify-content:flex-end;">
+                        <button type="button" class="btn-detail" id="btn-cancel-project" style="background:#aaa;">Huỷ</button>
+                        <button type="submit" class="btn-detail" id="btn-save-project">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+    <script>
+    // Sidebar toggle logic
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('sidebar-closed');
+        if (sidebar.classList.contains('sidebar-closed')) {
+            sidebar.style.marginLeft = '-250px';
+        } else {
+            sidebar.style.marginLeft = '0';
+        }
+    });
+
+    // Project CRUD logic
+    const projectModal = document.getElementById('project-modal');
+    const btnAddProject = document.getElementById('btn-add-project');
+    const btnCancelProject = document.getElementById('btn-cancel-project');
+    const projectForm = document.getElementById('project-form');
+    const projectTableBody = document.getElementById('project-table-body');
+    let editProjectIdx = null;
+    let PROJECTS_PER_PAGE = 10;
+    let projectCurrentPage = 1;
+
+    let projects = [
+        { name: 'Quản lí LAB', start: '2025-06-03', end: '2025-08-06', progress: 100, status: 'Hoàn thành' },
+        { name: 'Hệ thống mượn thiết bị', start: '2025-05-01', end: '2025-07-01', progress: 60, status: 'Đang thực hiện' },
+        { name: 'Nâng cấp phòng máy', start: '2025-04-10', end: '2025-06-30', progress: 30, status: 'Tạm dừng' },
+        { name: 'Phát triển phần mềm quản lý', start: '2025-03-01', end: '2025-05-30', progress: 80, status: 'Đang thực hiện' },
+        { name: 'Bảo trì hệ thống mạng', start: '2025-02-15', end: '2025-04-15', progress: 100, status: 'Hoàn thành' },
+        { name: 'Đào tạo nhân viên mới', start: '2025-01-10', end: '2025-03-10', progress: 100, status: 'Hoàn thành' },
+        { name: 'Kiểm kê thiết bị', start: '2025-05-01', end: '2025-06-01', progress: 50, status: 'Đang thực hiện' },
+        { name: 'Mở rộng phòng LAB', start: '2025-04-01', end: '2025-07-01', progress: 20, status: 'Tạm dừng' },
+        { name: 'Tối ưu hóa quy trình', start: '2025-03-15', end: '2025-05-15', progress: 100, status: 'Hoàn thành' },
+        { name: 'Nghiên cứu công nghệ mới', start: '2025-02-01', end: '2025-04-01', progress: 70, status: 'Đang thực hiện' },
+        { name: 'Dự án thử nghiệm AI', start: '2025-01-05', end: '2025-03-05', progress: 100, status: 'Hoàn thành' },
+        { name: 'Cải tiến bảo mật', start: '2025-06-01', end: '2025-08-01', progress: 10, status: 'Đang thực hiện' },
+    ];
+
+    function renderProjectTable() {
+        const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE) || 1;
+        if (projectCurrentPage > totalPages) projectCurrentPage = totalPages;
+        const start = (projectCurrentPage - 1) * PROJECTS_PER_PAGE;
+        const end = start + PROJECTS_PER_PAGE;
+        projectTableBody.innerHTML = '';
+        projects.slice(start, end).forEach((project, idx) => {
+            let statusColor = '#2ed47a';
+            if (project.status === 'Tạm dừng') statusColor = '#f1c40f';
+            if (project.status === 'Đang thực hiện') statusColor = '#2a7be4';
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${start + idx + 1}</td><td>${project.name}</td><td>${project.start}</td><td>${project.end}</td><td><div style='width:80px; background:#eee; border-radius:8px; overflow:hidden;'><div style='width:${project.progress}%; background:#2a7be4; color:#fff; text-align:center; border-radius:8px; font-size:13px;'>${project.progress}%</div></div></td><td><span class='status-done' style='background:${statusColor}; color:#fff;'>${project.status}</span></td><td><button class="btn-detail btn-edit-project">Sửa</button> <button class="btn-detail btn-delete-project" style="background:#e74c3c;">Xoá</button></td>`;
+            projectTableBody.appendChild(tr);
+        });
+        updateProjectPaginationInfo();
+    }
+
+    function updateProjectPaginationInfo() {
+        const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE) || 1;
+        document.getElementById('project-page-info').innerText = `Trang ${projectCurrentPage}/${totalPages}`;
+        document.getElementById('btn-project-prev-page').disabled = projectCurrentPage === 1;
+        document.getElementById('btn-project-next-page').disabled = projectCurrentPage === totalPages;
+    }
+
+    document.getElementById('btn-project-prev-page').onclick = function() {
+        if (projectCurrentPage > 1) {
+            projectCurrentPage--;
+            renderProjectTable();
+        }
+    };
+    document.getElementById('btn-project-next-page').onclick = function() {
+        const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE) || 1;
+        if (projectCurrentPage < totalPages) {
+            projectCurrentPage++;
+            renderProjectTable();
+        }
+    };
+
+    btnAddProject.onclick = function() {
+        projectForm.reset();
+        document.getElementById('project-modal-title').innerText = 'Thêm dự án';
+        projectModal.style.display = 'flex';
+        editProjectIdx = null;
+    };
+    btnCancelProject.onclick = function() {
+        projectModal.style.display = 'none';
+    };
+    projectTableBody.onclick = function(e) {
+        if (e.target.classList.contains('btn-edit-project')) {
+            const rowIdx = e.target.closest('tr').rowIndex - 1;
+            const start = (projectCurrentPage - 1) * PROJECTS_PER_PAGE;
+            editProjectIdx = start + rowIdx;
+            const project = projects[editProjectIdx];
+            document.getElementById('project-modal-title').innerText = 'Sửa dự án';
+            document.getElementById('project-name').value = project.name;
+            document.getElementById('project-start').value = project.start;
+            document.getElementById('project-end').value = project.end;
+            document.getElementById('project-progress').value = project.progress;
+            document.getElementById('project-status').value = project.status;
+            projectModal.style.display = 'flex';
+        }
+        if (e.target.classList.contains('btn-delete-project')) {
+            const rowIdx = e.target.closest('tr').rowIndex - 1;
+            const start = (projectCurrentPage - 1) * PROJECTS_PER_PAGE;
+            const idx = start + rowIdx;
+            if (confirm('Bạn có chắc muốn xoá dự án này?')) {
+                projects.splice(idx, 1);
+                // Nếu xoá hết trang hiện tại thì lùi về trang trước
+                const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE) || 1;
+                if (projectCurrentPage > totalPages) projectCurrentPage = totalPages;
+                renderProjectTable();
+            }
+        }
+    };
+    projectForm.onsubmit = function(e) {
+        e.preventDefault();
+        const name = document.getElementById('project-name').value;
+        const start = document.getElementById('project-start').value;
+        const end = document.getElementById('project-end').value;
+        const progress = parseInt(document.getElementById('project-progress').value, 10);
+        const status = document.getElementById('project-status').value;
+        if (editProjectIdx !== null) {
+            projects[editProjectIdx] = { name, start, end, progress, status };
+        } else {
+            projects.push({ name, start, end, progress, status });
+            // Nếu thêm vào trang mới thì chuyển sang trang đó
+            const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE) || 1;
+            projectCurrentPage = totalPages;
+        }
+        projectModal.style.display = 'none';
+        renderProjectTable();
+    };
+    projectModal.onclick = function(e) {
+        if (e.target === projectModal) projectModal.style.display = 'none';
+    };
+    // Khởi tạo bảng lần đầu
+    renderProjectTable();
+    </script>
+</body>
+</html>

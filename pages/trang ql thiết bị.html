@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý thiết bị</title>
+    <link rel="stylesheet" href="../css/pages/dashboard.css">
+    <link rel="stylesheet" href="../css/components/header.css">
+    <link rel="stylesheet" href="../css/components/sidebar.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Toggle Button -->
+        <button id="sidebar-toggle" class="sidebar-toggle-btn">
+            <span id="sidebar-toggle-icon">☰</span>
+        </button>
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header" style="white-space: nowrap; display: flex; align-items: center; gap: 8px;">
+                <h2 style="white-space: nowrap; font-size: 22px; margin: 0;">Quản lí LAB</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><span class="icon">🏠</span> <a href="trang chu.html" style="text-decoration:none; color:inherit;">Trang chủ</a></li>
+                    <li><span class="icon">👤</span> <a href="ql nguoi dung.html" style="text-decoration:none; color:inherit;">Nhân viên</a></li>
+                    <li class="active"><span class="icon">🖥️</span> <a href="trang ql thiết bị.html" style="text-decoration:none; color:inherit;">Thiết bị</a></li>
+                    <li><span class="icon">📁</span> <a href="ql du an.html" style="text-decoration:none; color:inherit;">Dự án</a></li>
+                    <li><span class="icon">🔄</span> Mượn thiết bị</li>
+                </ul>
+                <div class="sidebar-bottom">
+                    <ul>
+                        <li><span class="icon">⚙️</span> Cài đặt</li>
+                        <li><span class="icon">🔓</span> Đăng xuất</li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left"></div>
+                <div class="header-right">
+                    <span class="icon">🔔</span>
+                    <span class="user-info">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="avatar" class="avatar">
+                        <span>Kiên </span>
+                        <span class="role">Admin</span>
+                    </span>
+                </div>
+            </header>
+            <!-- Device Management Content -->
+            <section class="dashboard">
+                <h1>Quản lý thiết bị</h1>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                    <h2 style="margin: 0;">Danh sách thiết bị</h2>
+                    <button class="btn-detail" id="btn-add-device">+ Thêm thiết bị</button>
+                </div>
+                <!-- Bộ lọc -->
+                <div style="display:flex; gap:16px; margin-bottom:16px;">
+                    <select id="filter-type" class="btn-detail" style="background:#fff; color:#222; border:1px solid #ddd;">
+                        <option value="">Tất cả loại</option>
+                        <option value="Máy tính">Máy tính</option>
+                        <option value="Máy in">Máy in</option>
+                        <option value="Máy chiếu">Máy chiếu</option>
+                    </select>
+                    <select id="filter-status" class="btn-detail" style="background:#fff; color:#222; border:1px solid #ddd;">
+                        <option value="">Tất cả trạng thái</option>
+                        <option value="Đang sử dụng">Đang sử dụng</option>
+                        <option value="Sẵn sàng">Sẵn sàng</option>
+                        <option value="Bảo trì">Bảo trì</option>
+                    </select>
+                </div>
+                <table class="project-table" id="device-table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên thiết bị</th>
+                            <th>Loại</th>
+                            <th>Trạng thái</th>
+                            <th>Vị trí</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="device-table-body">
+                        <!-- Dữ liệu mẫu sẽ được render bằng JS -->
+                    </tbody>
+                </table>
+                <!-- Pagination Footer -->
+                <div id="device-pagination-footer" style="display:flex; align-items:center; justify-content:space-between; margin-top:12px;">
+                    <div id="device-page-info" style="font-weight:500;">Trang 1/1</div>
+                    <div>
+                        <button id="btn-device-prev-page" class="btn-detail" style="min-width:36px; padding:4px 0;">&lt;</button>
+                        <button id="btn-device-next-page" class="btn-detail" style="min-width:36px; padding:4px 0;">&gt;</button>
+                    </div>
+                </div>
+            </section>
+            <!-- Modal Thêm/Sửa thiết bị -->
+            <div id="device-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.2); align-items:center; justify-content:center; z-index:2000;">
+                <form id="device-form" style="background:#fff; padding:32px 24px; border-radius:12px; min-width:320px; max-width:90vw; box-shadow:0 2px 16px rgba(0,0,0,0.12); display:flex; flex-direction:column; gap:16px;">
+                    <h3 id="device-modal-title">Thêm thiết bị</h3>
+                    <input type="text" id="device-name" placeholder="Tên thiết bị" required>
+                    <select id="device-type">
+                        <option value="Máy tính">Máy tính</option>
+                        <option value="Máy in">Máy in</option>
+                        <option value="Máy chiếu">Máy chiếu</option>
+                    </select>
+                    <select id="device-status">
+                        <option value="Đang sử dụng">Đang sử dụng</option>
+                        <option value="Sẵn sàng">Sẵn sàng</option>
+                        <option value="Bảo trì">Bảo trì</option>
+                    </select>
+                    <input type="text" id="device-location" placeholder="Vị trí" required>
+                    <div style="display:flex; gap:12px; justify-content:flex-end;">
+                        <button type="button" class="btn-detail" id="btn-cancel-device" style="background:#aaa;">Huỷ</button>
+                        <button type="submit" class="btn-detail" id="btn-save-device">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+    <script>
+    // Sidebar toggle logic
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('sidebar-closed');
+        if (sidebar.classList.contains('sidebar-closed')) {
+            sidebar.style.marginLeft = '-250px';
+        } else {
+            sidebar.style.marginLeft = '0';
+        }
+    });
+
+    // Device CRUD & Filter logic
+    const deviceModal = document.getElementById('device-modal');
+    const btnAddDevice = document.getElementById('btn-add-device');
+    const btnCancelDevice = document.getElementById('btn-cancel-device');
+    const deviceForm = document.getElementById('device-form');
+    const deviceTableBody = document.getElementById('device-table-body');
+    const filterType = document.getElementById('filter-type');
+    const filterStatus = document.getElementById('filter-status');
+    const devicePageInfo = document.getElementById('device-page-info');
+    const btnDevicePrevPage = document.getElementById('btn-device-prev-page');
+    const btnDeviceNextPage = document.getElementById('btn-device-next-page');
+    let editDeviceIdx = null;
+    let devices = [
+        { name: 'PC-01', type: 'Máy tính', status: 'Đang sử dụng', location: 'Phòng 101' },
+        { name: 'PC-02', type: 'Máy tính', status: 'Sẵn sàng', location: 'Phòng 102' },
+        { name: 'Printer-01', type: 'Máy in', status: 'Bảo trì', location: 'Phòng 103' },
+        { name: 'Projector-01', type: 'Máy chiếu', status: 'Sẵn sàng', location: 'Phòng 104' },
+        { name: 'PC-03', type: 'Máy tính', status: 'Đang sử dụng', location: 'Phòng 105' },
+        { name: 'PC-04', type: 'Máy tính', status: 'Sẵn sàng', location: 'Phòng 106' },
+        { name: 'Printer-02', type: 'Máy in', status: 'Đang sử dụng', location: 'Phòng 107' },
+        { name: 'Projector-02', type: 'Máy chiếu', status: 'Bảo trì', location: 'Phòng 108' },
+        { name: 'PC-05', type: 'Máy tính', status: 'Sẵn sàng', location: 'Phòng 109' },
+        { name: 'PC-06', type: 'Máy tính', status: 'Đang sử dụng', location: 'Phòng 110' },
+    ];
+    const DEVICES_PER_PAGE = 10;
+    let deviceCurrentPage = 1;
+
+    function getFilteredDevices() {
+        const typeVal = filterType.value;
+        const statusVal = filterStatus.value;
+        return devices.filter(d =>
+            (typeVal === '' || d.type === typeVal) &&
+            (statusVal === '' || d.status === statusVal)
+        );
+    }
+
+    function renderDeviceTable() {
+        const filtered = getFilteredDevices();
+        const totalPages = Math.ceil(filtered.length / DEVICES_PER_PAGE) || 1;
+        if (deviceCurrentPage > totalPages) deviceCurrentPage = totalPages;
+        const start = (deviceCurrentPage - 1) * DEVICES_PER_PAGE;
+        const end = start + DEVICES_PER_PAGE;
+        const pageDevices = filtered.slice(start, end);
+        deviceTableBody.innerHTML = '';
+        pageDevices.forEach((device, idx) => {
+            let statusColor = '#2ed47a';
+            if (device.status === 'Bảo trì') statusColor = '#f1c40f';
+            if (device.status === 'Đang sử dụng') statusColor = '#2a7be4';
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${start + idx + 1}</td><td>${device.name}</td><td>${device.type}</td><td><span class="status-done" style="background:${statusColor}; color:#fff;">${device.status}</span></td><td>${device.location}</td><td><button class="btn-detail btn-edit-device">Sửa</button> <button class="btn-detail btn-delete-device" style="background:#e74c3c;">Xoá</button></td>`;
+            deviceTableBody.appendChild(tr);
+        });
+        updateDevicePaginationInfo();
+    }
+
+    function updateDevicePaginationInfo() {
+        const filtered = getFilteredDevices();
+        const totalPages = Math.ceil(filtered.length / DEVICES_PER_PAGE) || 1;
+        devicePageInfo.innerText = `Trang ${deviceCurrentPage}/${totalPages}`;
+        btnDevicePrevPage.disabled = deviceCurrentPage === 1;
+        btnDeviceNextPage.disabled = deviceCurrentPage === totalPages;
+    }
+
+    btnDevicePrevPage.onclick = function() {
+        if (deviceCurrentPage > 1) {
+            deviceCurrentPage--;
+            renderDeviceTable();
+        }
+    };
+    btnDeviceNextPage.onclick = function() {
+        const filtered = getFilteredDevices();
+        const totalPages = Math.ceil(filtered.length / DEVICES_PER_PAGE) || 1;
+        if (deviceCurrentPage < totalPages) {
+            deviceCurrentPage++;
+            renderDeviceTable();
+        }
+    };
+
+    filterType.onchange = function() {
+        deviceCurrentPage = 1;
+        renderDeviceTable();
+    };
+    filterStatus.onchange = function() {
+        deviceCurrentPage = 1;
+        renderDeviceTable();
+    };
+
+    btnAddDevice.onclick = function() {
+        deviceForm.reset();
+        document.getElementById('device-modal-title').innerText = 'Thêm thiết bị';
+        deviceModal.style.display = 'flex';
+        editDeviceIdx = null;
+    };
+    btnCancelDevice.onclick = function() {
+        deviceModal.style.display = 'none';
+    };
+    deviceTableBody.onclick = function(e) {
+        if (e.target.classList.contains('btn-edit-device')) {
+            const rowIdx = e.target.closest('tr').rowIndex - 1;
+            const filtered = getFilteredDevices();
+            const start = (deviceCurrentPage - 1) * DEVICES_PER_PAGE;
+            const device = filtered[start + rowIdx];
+            // Tìm index thực trong mảng gốc
+            editDeviceIdx = devices.findIndex(d => d.name === device.name && d.type === device.type && d.location === device.location);
+            document.getElementById('device-modal-title').innerText = 'Sửa thiết bị';
+            document.getElementById('device-name').value = device.name;
+            document.getElementById('device-type').value = device.type;
+            document.getElementById('device-status').value = device.status;
+            document.getElementById('device-location').value = device.location;
+            deviceModal.style.display = 'flex';
+        }
+        if (e.target.classList.contains('btn-delete-device')) {
+            const rowIdx = e.target.closest('tr').rowIndex - 1;
+            const filtered = getFilteredDevices();
+            const start = (deviceCurrentPage - 1) * DEVICES_PER_PAGE;
+            const device = filtered[start + rowIdx];
+            const idx = devices.findIndex(d => d.name === device.name && d.type === device.type && d.location === device.location);
+            if (confirm('Bạn có chắc muốn xoá thiết bị này?')) {
+                devices.splice(idx, 1);
+                // Nếu xoá hết trang hiện tại thì lùi về trang trước
+                const totalPages = Math.ceil(getFilteredDevices().length / DEVICES_PER_PAGE) || 1;
+                if (deviceCurrentPage > totalPages) deviceCurrentPage = totalPages;
+                renderDeviceTable();
+            }
+        }
+    };
+    deviceForm.onsubmit = function(e) {
+        e.preventDefault();
+        const name = document.getElementById('device-name').value;
+        const type = document.getElementById('device-type').value;
+        const status = document.getElementById('device-status').value;
+        const location = document.getElementById('device-location').value;
+        if (editDeviceIdx !== null) {
+            devices[editDeviceIdx] = { name, type, status, location };
+        } else {
+            devices.push({ name, type, status, location });
+            // Nếu thêm vào trang mới thì chuyển sang trang đó
+            const filtered = getFilteredDevices();
+            const totalPages = Math.ceil(filtered.length / DEVICES_PER_PAGE) || 1;
+            deviceCurrentPage = totalPages;
+        }
+        deviceModal.style.display = 'none';
+        renderDeviceTable();
+    };
+    deviceModal.onclick = function(e) {
+        if (e.target === deviceModal) deviceModal.style.display = 'none';
+    };
+    // Khởi tạo bảng lần đầu
+    renderDeviceTable();
+    </script>
+</body>
+</html>

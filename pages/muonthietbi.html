@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý mượn thiết bị</title>
+    <link rel="stylesheet" href="../css/pages/dashboard.css">
+    <link rel="stylesheet" href="../css/components/header.css">
+    <link rel="stylesheet" href="../css/components/sidebar.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Toggle Button -->
+        <button id="sidebar-toggle" class="sidebar-toggle-btn">
+            <span id="sidebar-toggle-icon">☰</span>
+        </button>
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header" style="white-space: nowrap; display: flex; align-items: center; gap: 8px;">
+                <h2 style="white-space: nowrap; font-size: 22px; margin: 0;">Quản lí LAB</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><span class="icon">🏠</span> <a href="trang chu.html" style="text-decoration:none; color:inherit;">Trang chủ</a></li>
+                    <li><span class="icon">👤</span> <a href="ql nguoi dung.html" style="text-decoration:none; color:inherit;">Nhân viên</a></li>
+                    <li><span class="icon">🖥️</span> <a href="trang ql thiết bị.html" style="text-decoration:none; color:inherit;">Thiết bị</a></li>
+                    <li><span class="icon">📁</span> <a href="ql du an.html" style="text-decoration:none; color:inherit;">Dự án</a></li>
+                    <li class="active"><span class="icon">🔄</span> <a href="muonthietbi.html" style="text-decoration:none; color:inherit;">Mượn thiết bị</a></li>
+                </ul>
+                <div class="sidebar-bottom">
+                    <ul>
+                        <li><span class="icon">⚙️</span> Cài đặt</li>
+                        <li><span class="icon">🔓</span> Đăng xuất</li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left"></div>
+                <div class="header-right">
+                    <span class="icon">🔔</span>
+                    <span class="user-info">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="avatar" class="avatar">
+                        <span>Kiên </span>
+                        <span class="role">Admin</span>
+                    </span>
+                </div>
+            </header>
+            <!-- Borrow Management Content -->
+            <section class="dashboard">
+                <h1>Quản lý mượn trả thiết bị</h1>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                    <h2 style="margin: 0;">Danh sách mượn thiết bị</h2>
+                    <div style="display:flex; gap:8px; margin-bottom:12px;">
+                        <button id="btn-export-csv" class="btn-detail" style="background:#2ed47a; color:#fff;">⬇️ Xuất file CSV</button>
+                    </div>
+                </div>
+                <!-- Bộ lọc -->
+                <div style="display:flex; gap:16px; margin-bottom:16px;">
+                    <input type="text" id="filter-user" class="btn-detail" style="background:#fff; color:#222; border:1px solid #ddd; min-width:180px;" placeholder="Tìm theo người dùng...">
+                    <input type="date" id="filter-date-from" class="btn-detail" style="background:#fff; color:#222; border:1px solid #ddd;">
+                    <span style="align-self:center;">đến</span>
+                    <input type="date" id="filter-date-to" class="btn-detail" style="background:#fff; color:#222; border:1px solid #ddd;">
+                </div>
+                <table class="project-table" id="borrow-table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Người mượn</th>
+                            <th>Tên thiết bị</th>
+                            <th>Ngày mượn</th>
+                            <th>Ngày trả</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="borrow-table-body">
+                        <!-- Dữ liệu mẫu sẽ được render bằng JS -->
+                    </tbody>
+                </table>
+                <!-- Pagination Footer -->
+                <div id="borrow-pagination-footer" style="display:flex; align-items:center; justify-content:space-between; margin-top:12px;">
+                    <div id="borrow-page-info" style="font-weight:500;">Trang 1/1</div>
+                    <div>
+                        <button id="btn-borrow-prev-page" class="btn-detail" style="min-width:36px; padding:4px 0;">&lt;</button>
+                        <button id="btn-borrow-next-page" class="btn-detail" style="min-width:36px; padding:4px 0;">&gt;</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+    // Sidebar toggle logic
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('sidebar-closed');
+        if (sidebar.classList.contains('sidebar-closed')) {
+            sidebar.style.marginLeft = '-250px';
+        } else {
+            sidebar.style.marginLeft = '0';
+        }
+    });
+
+    // Borrow CRUD & Filter logic
+    const borrowTableBody = document.getElementById('borrow-table-body');
+    const filterUser = document.getElementById('filter-user');
+    const filterDateFrom = document.getElementById('filter-date-from');
+    const filterDateTo = document.getElementById('filter-date-to');
+    let borrows = [
+        { user: 'Nguyễn Văn A', device: 'PC-01', dateBorrow: '2025-06-01', dateReturn: '2025-06-05', status: 'Đã trả' },
+        { user: 'Trần Thị B', device: 'Printer-01', dateBorrow: '2025-06-02', dateReturn: '', status: 'Đang mượn' },
+        { user: 'Lê Văn C', device: 'PC-02', dateBorrow: '2025-06-03', dateReturn: '', status: 'Đang mượn' },
+        { user: 'Phạm Thị D', device: 'Projector-01', dateBorrow: '2025-05-30', dateReturn: '2025-06-02', status: 'Đã trả' },
+        { user: 'Ngô Văn E', device: 'PC-03', dateBorrow: '2025-06-04', dateReturn: '', status: 'Đang mượn' },
+        { user: 'Vũ Thị F', device: 'Laptop-01', dateBorrow: '2025-06-01', dateReturn: '2025-06-05', status: 'Đã trả' },
+        { user: 'Đặng Văn G', device: 'Tablet-01', dateBorrow: '2025-06-02', dateReturn: '', status: 'Đang mượn' },
+        { user: 'Phan Thị H', device: 'Camera-01', dateBorrow: '2025-06-03', dateReturn: '', status: 'Đang mượn' },
+        { user: 'Bùi Văn I', device: 'Router-01', dateBorrow: '2025-05-29', dateReturn: '2025-06-01', status: 'Đã trả' },
+        { user: 'Lý Thị K', device: 'Switch-01', dateBorrow: '2025-06-04', dateReturn: '', status: 'Đang mượn' },
+        { user: 'Nguyễn Thị L', device: 'Monitor-01', dateBorrow: '2025-06-05', dateReturn: '', status: 'Đang mượn' },
+        { user: 'Trần Văn M', device: 'PC-04', dateBorrow: '2025-06-03', dateReturn: '2025-06-05', status: 'Đã trả' },
+        { user: 'Lê Thị N', device: 'Printer-02', dateBorrow: '2025-06-02', dateReturn: '', status: 'Đang mượn' },
+        { user: 'Phạm Văn O', device: 'Laptop-02', dateBorrow: '2025-06-01', dateReturn: '', status: 'Đang mượn' },
+        { user: 'Ngô Thị P', device: 'Tablet-02', dateBorrow: '2025-05-31', dateReturn: '2025-06-04', status: 'Đã trả' }
+    ];
+    const BORROWS_PER_PAGE = 10;
+    let borrowCurrentPage = 1;
+
+    function getFilteredBorrows() {
+        const userVal = filterUser.value.trim().toLowerCase();
+        const fromVal = filterDateFrom.value;
+        const toVal = filterDateTo.value;
+        return borrows.filter(b => {
+            const matchUser = !userVal || b.user.toLowerCase().includes(userVal);
+            const matchFrom = !fromVal || b.dateBorrow >= fromVal;
+            const matchTo = !toVal || b.dateBorrow <= toVal;
+            return matchUser && matchFrom && matchTo;
+        });
+    }
+
+    function renderBorrowTable() {
+        const filtered = getFilteredBorrows();
+        const totalPages = Math.ceil(filtered.length / BORROWS_PER_PAGE) || 1;
+        if (borrowCurrentPage > totalPages) borrowCurrentPage = totalPages;
+        const start = (borrowCurrentPage - 1) * BORROWS_PER_PAGE;
+        const end = start + BORROWS_PER_PAGE;
+        const pageBorrows = filtered.slice(start, end);
+        borrowTableBody.innerHTML = '';
+        pageBorrows.forEach((b, idx) => {
+            let statusColor = b.status === 'Đã trả' ? '#2ed47a' : '#2a7be4';
+            let actionBtn = b.status === 'Đang mượn' ? `<button class='btn-detail btn-confirm-return'>Xác nhận trả</button>` : '';
+            // Thêm nút xoá nếu là admin
+            if (window.currentUserRole === 'admin') {
+                actionBtn += ` <button class='btn-detail btn-delete-borrow' style='background:#ff4d4f; color:#fff;'>Xoá</button>`;
+            }
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${start + idx + 1}</td><td>${b.user}</td><td>${b.device}</td><td>${b.dateBorrow}</td><td>${b.dateReturn || '-'}</td><td><span class='status-done' style='background:${statusColor}; color:#fff;'>${b.status}</span></td><td>${actionBtn}</td>`;
+            borrowTableBody.appendChild(tr);
+        });
+        updateBorrowPaginationInfo();
+    }
+
+    function updateBorrowPaginationInfo() {
+        const filtered = getFilteredBorrows();
+        const totalPages = Math.ceil(filtered.length / BORROWS_PER_PAGE) || 1;
+        document.getElementById('borrow-page-info').innerText = `Trang ${borrowCurrentPage}/${totalPages}`;
+        document.getElementById('btn-borrow-prev-page').disabled = borrowCurrentPage === 1;
+        document.getElementById('btn-borrow-next-page').disabled = borrowCurrentPage === totalPages;
+    }
+
+    document.getElementById('btn-borrow-prev-page').onclick = function() {
+        if (borrowCurrentPage > 1) {
+            borrowCurrentPage--;
+            renderBorrowTable();
+        }
+    };
+    document.getElementById('btn-borrow-next-page').onclick = function() {
+        const filtered = getFilteredBorrows();
+        const totalPages = Math.ceil(filtered.length / BORROWS_PER_PAGE) || 1;
+        if (borrowCurrentPage < totalPages) {
+            borrowCurrentPage++;
+            renderBorrowTable();
+        }
+    };
+
+    filterUser.oninput = function() {
+        borrowCurrentPage = 1;
+        renderBorrowTable();
+    };
+    filterDateFrom.onchange = function() {
+        borrowCurrentPage = 1;
+        renderBorrowTable();
+    };
+    filterDateTo.onchange = function() {
+        borrowCurrentPage = 1;
+        renderBorrowTable();
+    };
+
+    // Export to CSV
+    document.getElementById('btn-export-csv').onclick = function() {
+        const filtered = getFilteredBorrows();
+        let csv = 'STT,Người mượn,Tên thiết bị,Ngày mượn,Ngày trả,Trạng thái\n';
+        filtered.forEach((b, idx) => {
+            csv += `${idx+1},"${b.user}","${b.device}",${b.dateBorrow},${b.dateReturn || '-'},${b.status}\n`;
+        });
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'lich_su_muon_thiet_bi.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+
+    borrowTableBody.onclick = function(e) {
+        if (e.target.classList.contains('btn-confirm-return')) {
+            const rowIdx = e.target.closest('tr').rowIndex - 1;
+            const filtered = getFilteredBorrows();
+            const start = (borrowCurrentPage - 1) * BORROWS_PER_PAGE;
+            const b = filtered[start + rowIdx];
+            // Tìm index thực trong mảng gốc
+            const idx = borrows.findIndex(x => x.user === b.user && x.device === b.device && x.dateBorrow === b.dateBorrow);
+            if (confirm('Xác nhận thiết bị đã được trả?')) {
+                borrows[idx].status = 'Đã trả';
+                borrows[idx].dateReturn = new Date().toISOString().slice(0,10);
+                renderBorrowTable();
+            }
+        } else if (e.target.classList.contains('btn-delete-borrow')) {
+            const rowIdx = e.target.closest('tr').rowIndex - 1;
+            const filtered = getFilteredBorrows();
+            const start = (borrowCurrentPage - 1) * BORROWS_PER_PAGE;
+            const b = filtered[start + rowIdx];
+            const idx = borrows.findIndex(x => x.user === b.user && x.device === b.device && x.dateBorrow === b.dateBorrow);
+            if (confirm('Bạn có chắc chắn muốn xoá dòng này?')) {
+                borrows.splice(idx, 1);
+                renderBorrowTable();
+            }
+        }
+    };
+
+    // Responsive: tự động ẩn sidebar trên mobile
+    function handleResize() {
+        if (window.innerWidth < 900) {
+            sidebar.classList.add('sidebar-closed');
+            sidebar.style.marginLeft = '-250px';
+        } else {
+            sidebar.classList.remove('sidebar-closed');
+            sidebar.style.marginLeft = '0';
+        }
+    }
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    // Khởi tạo bảng lần đầu
+    renderBorrowTable();
+
+    // Phân quyền: giả lập role, chỉ admin mới có quyền xoá
+    window.currentUserRole = 'admin'; // Đổi thành 'user' để test giao diện không có nút xoá
+    </script>
+</body>
+</html>

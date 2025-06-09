@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lí LAB - Trang chủ</title>
+    <link rel="stylesheet" href="../css/pages/dashboard.css">
+    <link rel="stylesheet" href="../css/components/header.css">
+    <link rel="stylesheet" href="../css/components/sidebar.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Toggle Button -->
+        <button id="sidebar-toggle" style="position: fixed; top: 18px; left: 18px; z-index: 1001; background: #2a7be4; color: #fff; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(44,62,80,0.08);">
+            <span id="sidebar-toggle-icon">☰</span>
+        </button>
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>QLAB</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><span class="icon">🏠</span> Trang chủ</li>
+                    <li><span class="icon">👤</span> <a href="ql nguoi dung.html" style="text-decoration:none; color:inherit;">Nhân viên</a></li>
+                    <li><span class="icon">🖥️</span> Thiết bị</li>
+                    <li><span class="icon">📁</span> Dự án</li>
+                    <li><span class="icon">🔄</span> <a href="muonthietbi.html" style="text-decoration:none; color:inherit;">Mượn thiết bị</a></li>
+                </ul>
+                <div class="sidebar-bottom">
+                    <ul>
+                        <li><span class="icon">⚙️</span> Cài đặt</li>
+                        <li><span class="icon">🔓</span> Đăng xuất</li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left"></div>
+                <div class="header-right">
+                    <span class="icon">🔔</span>
+                    <span class="user-info">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="avatar" class="avatar">
+                        <span>Kiên </span>
+                        <span class="role">Admin</span>
+                    </span>
+                </div>
+            </header>
+            <!-- Dashboard Content -->
+            <section class="dashboard">
+                <h1>Trang chủ</h1>
+                <!-- Thống kê nhanh -->
+                <div class="stats-cards">
+                    <div class="card">
+                        <div class="card-icon">👤</div>
+                        <div class="card-info">
+                            <div class="card-title">Nhân viên</div>
+                            <div class="card-value">40,689</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📦</div>
+                        <div class="card-info">
+                            <div class="card-title">Tổng phiếu mượn</div>
+                            <div class="card-value">10293</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📈</div>
+                        <div class="card-info">
+                            <div class="card-title">Tổng phiếu mượn đúng hạn</div>
+                            <div class="card-value">14000</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">⏰</div>
+                        <div class="card-info">
+                            <div class="card-title">Tổng phiếu mượn quá hạn</div>
+                            <div class="card-value">2040</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Biểu đồ tổng mượn -->
+                <div class="chart-section">
+                    <div class="chart-header">
+                        <span>Bảng dữ liệu tổng mượn</span>
+                    </div>
+                    <div class="chart-area">
+                        <!-- Biểu đồ 1 động bằng Chart.js -->
+                        <canvas id="chart1" width="600" height="250"></canvas>
+                    </div>
+                    <div class="chart-legend">
+                        <span class="legend-dot legend-dot-red"></span> Đúng hạn
+                        <span class="legend-dot legend-dot-purple"></span> Quá hạn
+                    </div>
+                </div>
+                <!-- Biểu đồ thiết bị -->
+                <div class="chart-section">
+                    <div class="chart-header">
+                        <span>Bảng dữ liệu thống kê thiết bị</span>
+                    </div>
+                    <div class="chart-area">
+                        <!-- Biểu đồ 2 động bằng Chart.js -->
+                        <canvas id="chart2" width="600" height="250"></canvas>
+                    </div>
+                    <div class="chart-legend">
+                        <span class="legend-dot legend-dot-red"></span> Đang sử dụng
+                        <span class="legend-dot legend-dot-purple"></span> Còn lại
+                    </div>
+                </div>
+                <!-- Dự án -->
+                <div class="project-section" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0;">
+                    <h2 style="margin-bottom: 0;">Dự án</h2>
+                    <button class="btn-detail">Chi tiết</button>
+                </div>
+                <table class="project-table">
+                    <thead>
+                        <tr>
+                            <th>Tên dự án</th>
+                            <th>Bắt đầu</th>
+                            <th>Kết thúc</th>
+                            <th>Số giờ ước tính</th>
+                            <th>Người thực hiện</th>
+                            <th>Tiến độ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Quản lí LAB</td>
+                            <td>3.06.2025 - 7.30 PM</td>
+                            <td>8.06.2025 - 4.30 PM</td>
+                            <td>423</td>
+                            <td>Kiên</td>
+                            <td><span class="status-done">Hoàn thành</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Bảng dữ liệu -->
+                <div class="data-table-section">
+                    <h2>Bảng dữ liệu</h2>
+                    </div>
+                    <div class="data-charts">
+                        <canvas id="chart3" width="600" height="250"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <!-- Script: Chart.js và sidebar toggle -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    // Sidebar toggle logic
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('sidebar-closed');
+        if (sidebar.classList.contains('sidebar-closed')) {
+            sidebar.style.marginLeft = '-250px';
+        } else {
+            sidebar.style.marginLeft = '0';
+        }
+    });
+    // Biểu đồ 1: Dữ liệu tổng mượn
+    const ctx1 = document.getElementById('chart1').getContext('2d');
+    new Chart(ctx1, {
+        type: 'line',
+        data: {
+            labels: ['Tuần 1', 'Tuần 2', 'Tuần 3', 'Tuần 4', 'Tuần 5'],
+            datasets: [
+                {
+                    label: 'Đúng hạn',
+                    data: [40, 60, 80, 60, 90],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: '#ffb3b3',
+                    fill: true,
+                    tension: 0.4
+                },
+                {
+                    label: 'Quá hạn',
+                    data: [20, 30, 50, 40, 60],
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: '#c7b3ff',
+                    fill: true,
+                    tension: 0.4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+    // Biểu đồ 2: Thống kê thiết bị
+    const ctx2 = document.getElementById('chart2').getContext('2d');
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Thiết bị A', 'Thiết bị B', 'Thiết bị C', 'Thiết bị D'],
+            datasets: [
+                {
+                    label: 'Đang sử dụng',
+                    data: [12, 19, 7, 14],
+                    backgroundColor: '#ffb3b3'
+                },
+                {
+                    label: 'Còn lại',
+                    data: [8, 6, 13, 10],
+                    backgroundColor: '#c7b3ff'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+    // Biểu đồ 3: Bảng dữ liệu (ví dụ dạng cột)
+    const ctx3 = document.getElementById('chart3').getContext('2d');
+    new Chart(ctx3, {
+        type: 'bar',
+        data: {
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5'],
+            datasets: [
+                {
+                    label: 'Số lượng',
+                    data: [30, 45, 28, 60, 40],
+                    backgroundColor: '#2a7be4'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+    </script>
+</body>
+</html>

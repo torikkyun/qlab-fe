@@ -31,3 +31,42 @@ body {
   flex: 1;
   padding: 20px;
 }
+
+/* Nút chi tiết cho các bảng, dự án, v.v. */
+.btn-detail {
+    padding: 8px 18px;
+    background: #2a7be4;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 16px; /* Khoảng cách dưới nút */
+}
+/* Hiệu ứng hover cho nút chi tiết */
+.btn-detail:hover {
+    background: #195ca6;
+}
+/* Trạng thái sidebar đóng */
+.sidebar.sidebar-closed {
+    margin-left: -250px !important;
+    transition: margin 0.3s;
+}
+/* Hiệu ứng chuyển động cho sidebar */
+.sidebar {
+    transition: margin 0.3s;
+}
+/* Responsive: sidebar cố định khi màn hình nhỏ */
+@media (max-width: 900px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        z-index: 1000;
+    }
+    .main-content {
+        margin-left: 0 !important;
+    }
+}
