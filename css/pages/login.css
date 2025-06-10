@@ -69,100 +69,21 @@ body {
     background-color: #357abd;
 }
 .login-container .links {
+    margin-top: 18px;
+    justify-content: center;
+    gap: 6px;
+    font-size: 15px;
     display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
+    align-items: center;
+}
+.login-container .links span {
+    color: #444;
 }
 .login-container .links a {
-    font-size: 14px;
     color: #4a90e2;
+    font-weight: 500;
     text-decoration: none;
 }
 .login-container .links a:hover {
-    text-decoration: underline;
-}
-/* đăng ký */
-body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(to bottom right, #4a90e2, #357abd);
-    font-family: Arial, sans-serif;
-}
-.register-container {
-    background-color: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 350px;
-    text-align: center;
-}
-.register-container h2 {
-    margin: 0 0 10px;
-    font-size: 24px;
-}
-.register-container p {
-    margin: 0 0 20px;
-    color: #666;
-    font-size: 14px;
-}
-.register-container label {
-    display: block;
-    text-align: left;
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: #333;
-}
-.register-container input[type="email"],
-.register-container input[type="text"],
-.register-container input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 14px;
-}
-.register-container .checkbox-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-.register-container .checkbox-container input[type="checkbox"] {
-    margin-right: 10px;
-}
-.register-container .checkbox-container label {
-    margin: 0;
-    font-size: 14px;
-    color: #333;
-}
-.register-container button {
-    width: 100%;
-    padding: 12px;
-    background-color: #4a90e2;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-.register-container button:hover {
-    background-color: #357abd;
-}
-.register-container .links {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-}
-.register-container .links a {
-    font-size: 14px;
-    color: #4a90e2;
-    text-decoration: none;
-}
-.register-container .links a:hover {
     text-decoration: underline;
 }
